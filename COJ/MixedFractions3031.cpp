@@ -1,16 +1,16 @@
 /*
-NOT YET WORKING
 Code created by Carlos Estrada
 September 17, 2017
 */
 
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 int getNumber()
 {
 	int iNumber;
-	cin >> iNumber;
+	scanf("%d", &iNumber);
 	return iNumber;
 }
 
@@ -28,7 +28,9 @@ int calculateNewNom(int iNominator, int iDenominator)
 
 void showData(int iWhole, int iNominator, int iDenominator)
 {
-	cout << iWhole << " " << iNominator << " / " << iDenominator << endl;
+	char sSpace[] = "";
+	char sSlash[] = "/";
+	printf("%d %d %s %d \n", iWhole, iNominator, sSlash, iDenominator);
 }
 
 void calculateMixed(int iNominator, int iDenominator, int &iNewNom,
