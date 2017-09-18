@@ -1,16 +1,22 @@
+/*
+Code created by Carlos Estrada
+September 18, 2017
+*/
+
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 int getData()
 {
 	int iNumber;
-	cin >> iNumber;
+	scanf("%d", &iNumber);
 	return iNumber;
 }
 
 void printNumber(int iNumber)
 {
-	cout << iNumber << endl;
+	printf("%d\n", iNumber );
 }
 
 int main()
