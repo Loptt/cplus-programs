@@ -84,7 +84,7 @@ int main()
 
 	iAmountOfInstructions = getInt();
 
-	calculateInitialPosition(iFinalPositionY, iFinalPositionY,
+	calculateInitialPosition(iFinalPositionX, iFinalPositionY,
 							 iAmountOfInstructions, iInitialPositionX,
 							 iInitialPositionY);
 
