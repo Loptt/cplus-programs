@@ -1,94 +1,61 @@
-/*
-NOT YET WORKING
-Code created by Carlos Estrada
-September 17, 2017
-*/
 #include <iostream>
 using namespace std;
 
 int getInt()
 {
-	int iNumber;
-	cin >> iNumber;
-	return iNumber;
+	int iNum;
+	cin >> iNum;
+	return iNum;
 }
 
 char getCoordinate()
 {
-	char cCoordinate;
-	cin >> cCoordinate;
-	return cCoordinate;
+	char cOption;
+	cin >> cOption;
+	return cOption;
 }
 
-void changePosition(int &iPosX, int &iPosY)
+void showAns(int iPosx, int iPosy)
 {
-	char cDirection = getCoordinate();
-	int AmountOfMov = getInt();
+	cout << iPosx << " " << iPosy << endl;
+}
 
-	switch(cDirection)
+void getInicial(int iPosfinalx, int iPosfinaly, int iRepeat)
+{
+	int iPosinicialX, iPosinicialY, iAmountmov;
+	char cOption;
+	for (int i = 0; i < iRepeat; i++)
 	{
-		case 'E':
-			iPosX = iPosX - AmountOfMov;
-			break;
-
-		case 'W':
-			iPosX = iPosX + AmountOfMov;
-			break;
-
-		case 'S':
-			iPosY = iPosY - AmountOfMov;
-			break;
-
-		case 'N':
-			iPosY = iPosY + AmountOfMov;
-
-		default:
-		
-			break;
+		cOption = getCoordinate();
+		iAmountmov = getInt();
+		switch(cOption)
+		{
+			case'E': iPosfinalx = iPosfinalx - iAmountmov;
+				break;
+			case'W': iPosfinalx = iPosfinalx + iAmountmov;
+				break;
+			case'N': iPosfinaly = iPosfinaly + iAmountmov;
+				break;
+			case'S': iPosfinaly = iPosfinaly - iAmountmov;
+				break;
+		}
 	}
-}
-
-void calculateInitialPosition(int iPosX, int iPosY, int iAmount, 
-							 int &iResultPositionX, int &iResultPositionY)
-{
-	for (int iCounter = 0; iCounter < iAmount; ++iCounter)
-	{
-		changePosition(iPosX, iPosY);
-
-		iResultPositionX = iPosX;
-		iResultPositionY = iPosY;
-	}
+	//show result after loop is over
+	showAns(iPosfinalx, iPosfinaly);
 
 }
 
-void showResults(int iPosX, int iPosY)
+int main ()
 {
-	cout << iPosX << " " << iPosY << endl;
-}
+	//Declaring and Evaluating Variables
+	int iGridsizex = getInt();
+	int iGridsizeY = getInt();
+	int iPosfinalx = getInt();
+	int iPosfinaly = getInt();
+	int iRepeat = getInt();
 
-int main()
-{
-	//Declare variables
-	int iSizeGridX, iSizeGridY;
-	int iFinalPositionX, iFinalPositionY;
-	int iInitialPositionX, iInitialPositionY;
-	int iAmountOfInstructions = 0;
+	getInicial(iPosfinalx,iPosfinaly,iRepeat);
 
-	//Get the grid size
-	iSizeGridX = getInt();
-	iSizeGridY = getInt();
-
-	//Get the dog final postion
-	iFinalPositionX = getInt();
-	iFinalPositionY = getInt();
-
-	iAmountOfInstructions = getInt();
-
-	calculateInitialPosition(iFinalPositionX, iFinalPositionY,
-							 iAmountOfInstructions, iInitialPositionX,
-							 iInitialPositionY);
-
-	showResults(iInitialPositionX, iInitialPositionY);
 
 	return 0;
 }
