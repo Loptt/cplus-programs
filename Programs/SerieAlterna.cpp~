@@ -3,7 +3,6 @@ using namespace std;
 
 int getNumber()
 {
-	cout << "introduce un numero" << endl;
 	int iNumber;
 	cin >> iNumber;
 	return iNumber;

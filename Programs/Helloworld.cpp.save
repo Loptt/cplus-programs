@@ -3,7 +3,7 @@ using namespace std;
 
 void showData()
 {
-	cout << "HOLA JONATHAN COMO ESTAS?" << endl;
+	cout << d" << endl;
 }
 
 int main()
