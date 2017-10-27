@@ -1,6 +1,54 @@
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
+int main()
+{
+	int n, m;
+	scanf("%d %d", &n, &m);
+
+	int n1, m1;
+	scanf("%d %d", &n1, &m1);
+
+
+	int movements;
+	scanf("%d", &movements);
+
+	while(movements--)
+	{
+		char direction;
+		int amount;
+		scanf("%c %d", &direction, &amount);
+
+		switch (direction)
+		{
+			case 'E':
+				m1 -= amount;
+				break;
+
+			case 'W':
+				m1 += amount;
+				break;
+
+			case 'S':
+				n1 -= amount;
+				break;
+			
+			case 'N':
+				n1 += amount;
+				break;
+		}
+	}
+
+	char d =' ';
+
+	printf("%d %c %d\n", n1, m1, d);
+
+	cout << n1 << " " << m1 << endl;
+
+	return 0;
+}
+/*
 int getInt()
 {
 	int iNum;
@@ -59,3 +107,4 @@ int main ()
 
 	return 0;
 }
+*/

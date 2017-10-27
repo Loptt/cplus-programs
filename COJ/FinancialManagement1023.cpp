@@ -2,36 +2,20 @@
 #include <cstdio>
 using namespace std;
 
-void round(double x)
-{
-   double y = 100 * x;
-   int rounded = (int)(y + 0.5);
-   printf("%d.%02d\n", rounded / 100, rounded % 100);
-}
-
 int main()
 {
-	float fList[12];
-	float fSum = 0;
-	float fAverage = 0;
+	double balance, average, round, sum = 0;
 
 	for (int i = 0; i < 12; ++i)
 	{
-		scanf("%f", &fList[i]);
+		cin >> balance;
+		sum += balance;
 	}
 
-	for (int i = 0; i < 12; ++i)
-	{
-		fSum += fList[i];
-	}
+	average = sum / 12;
 
-	fAverage = fSum / 12;
+	cout <<'$'<< average << endl;
 
-	char sign = '$';
-
-	printf("%c", sign);
-	round(fAverage);
-	printf("\n");
 
 	return 0;
 }

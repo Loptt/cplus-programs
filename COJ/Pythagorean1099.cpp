@@ -1,88 +1,45 @@
 #include <iostream> 
 using namespace std;
 
-const bool bTestCase = true;
-
-int getNumber()
+int main()
 {
-	if (bTestCase)
+	int number1, number2, number3, biggest = 0, small1, small2;
+
+	while(true)
 	{
-		cout << "Enter Number:" << endl;
-	}
-	int iNumber;
-	cin >> iNumber;
-	return 0;
-}
+		cin >> number1;
 
-int sumSquares(int iFirstNumber, int iSecondNumber)
-{
-	int iSum = ( iFirstNumber * iFirstNumber ) + (iSecondNumber * iSecondNumber);
-	return iSum;
-}
-
-int square(int iNumber)
-{
-	int iSquared = iNumber * iNumber;
-	return iSquared;
-}
-
-bool isPythagorean(int iFirstNumber, int iSecondNumber,int iThirdNumber)
-{
-	bool bIsPythagorean = false;
-
-	if (square(iFirstNumber) == sumSquares(iSecondNumber, iThirdNumber))
-	{
-		bIsPythagorean = true;
-	}
-	else
-	{
-		if (square(iSecondNumber) == sumSquares(iThirdNumber, iFirstNumber))
+		if (!number1)
 		{
-			bIsPythagorean = true;	
+			break;
+		}
+		
+		cin >> number2 >> number3;
+
+		if (number1 > number2 && number1 > number3)
+		{
+			biggest = number1;
+			small1 = number2;
+			small2 = number3;
 		}
 		else
 		{
-			if (square(iThirdNumber) == sumSquares(iSecondNumber, iFirstNumber))
+			if (number2 > number1 && number2 > number3)
 			{
-				bIsPythagorean = true;
+				biggest = number2;
+				small1 = number1;
+				small2 = number3;
+			}
+			else
+			{
+				biggest = number3;
+				small1 = number2;
+				small2 = number1;
 			}
 		}
-	}
 
-	return bIsPythagorean;
-}
-
-void showResult(bool bIsPythagorean)
-{
-	if (bIsPythagorean)
-	{
-		cout << "right" << endl;
-	}
-	else
-	{
-		cout << "wrong" << endl;
-	}
-}
-
-int main()
-{
-	int iFirstNumber = 1;
-	int iSecondNumber = 1;
-	int iThirdNumber = 1;
-
-	bool bIsPythagorean = false;
-
-	while (iFirstNumber != 0 || iSecondNumber != 0 || iThirdNumber != 0)
-	{
-		iFirstNumber = getNumber();
-		iSecondNumber = getNumber();
-		iThirdNumber = getNumber();
-
-		if (iFirstNumber != 0 || iSecondNumber != 0 || iThirdNumber != 0)
-		{
-			bIsPythagorean = isPythagorean(iFirstNumber, iSecondNumber, iThirdNumber);
-			showResult(bIsPythagorean);
-		}
+		cout << (biggest*biggest==small1*small1+small2*small2?"right":"wrong");
+		cout << endl;
 	}
 
 	return 0;
