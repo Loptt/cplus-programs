@@ -1,5 +1,5 @@
 #include <iostream>
-##include "Ship.h"lude <string>
+#include <string>
 using namespace std;
 
 int main()
