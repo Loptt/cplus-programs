@@ -4,13 +4,28 @@ using namespace std;
 
 int main()
 {
-	string number;
-	cin >> number;
+    int tests;
+    cin >> tests;
 
-	int penultimo = number[number.length()-2] -48;
-	int ultimo = number[number.length()-1] -48;
+    while (tests--)
+    {
+        string number;
+        cin >> number;
 
-	int lasttwo = penultimo*10+ultimo;
+        int penultimo = number[number.length()-2] - 48;
+        int ultimo = number[number.length()-1] - 48;
 
-	cout << (lasttwo%4==0?"YES":"NO") << endl;
+        int numberInt = penultimo * 10 + ultimo;
+
+        if (numberInt % 4 == 0)
+        {
+            cout << "YES" << endl;
+        }
+        else
+        {
+            cout << "NO" << endl;
+        }
+    }
+
+    return 0;
 }
