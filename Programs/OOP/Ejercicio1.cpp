@@ -1,3 +1,9 @@
+/*
+Created by Carlos Estrada
+26/01/2018
+Programmación Orientada a Objetos
+*/
+
 #include <fstream>
 #include <string>
 using namespace std;

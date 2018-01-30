@@ -1,3 +1,9 @@
+/*
+Created by Carlos Estrada
+26/01/2018
+Porgramación Orientada a Objetos
+*/
+
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -48,18 +54,21 @@ int main()
         {
             iSpacesAdd = 25 - sFrase.length();
             iPlaces = getPlaces(sFrase);
-            iSpacePerPlace = iSpacesAdd / iPlaces; 
 
-
-            iExtraSpaces = iSpacesAdd % iPlaces;
-
-            for (int iCounter = sFrase.length()-1; iCounter >= 0; --iCounter)
+            if (iPlaces)
             {
-                if (sFrase[iCounter] == ' ')
-                {
-                    addSpaces(sFrase, iSpacePerPlace, iExtraSpaces, iCounter);
-                }
+                iSpacePerPlace = iSpacesAdd / iPlaces; 
 
+                iExtraSpaces = iSpacesAdd % iPlaces;
+
+                for (int iCounter = sFrase.length()-1; iCounter >= 0; --iCounter)
+                {
+                    if (sFrase[iCounter] == ' ')
+                    {
+                        addSpaces(sFrase, iSpacePerPlace, iExtraSpaces, iCounter);
+                    }
+
+                }
             }
 
             outputFile << sFrase << endl; 

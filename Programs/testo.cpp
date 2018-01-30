@@ -7,14 +7,15 @@ int main()
     ifstream variable;
     variable.open("informacion.txt");
 
-    int numero = 0;
-
-    for (int i = 0; i < 10; ++i)
+    char numero;
+    while (variable >> numero)
     {
-        variable >> numero;
-        cout << numero << endl;
+       if (variable >> endl)
+        {
+            cout << "hola" << endl;
+        }
     }
 
     variable.close();
-    return 0;
+    return ;
 }
