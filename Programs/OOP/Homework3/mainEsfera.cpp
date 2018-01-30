@@ -1,3 +1,10 @@
+/*
+Code created by Carlos Estrada
+All rights reserved
+29/01/2017
+Programacion Orientada a Objetos
+*/
+
 #include <iostream>
 using namespace std;
 

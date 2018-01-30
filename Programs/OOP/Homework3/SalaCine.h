@@ -1,9 +1,12 @@
-//
-// Created by charles on 29/01/18.
-//
+/*
+Code created by Carlos Estrada
+All rights reserved
+29/01/2017
+Programacion Orientada a Objetos
+*/
 
-#ifndef HOMEWORK3_SALACINE_H
-#define HOMEWORK3_SALACINE_H
+#ifndef SALACINE_H
+#define SALACINE_H
 
 #include <string>
 
@@ -54,4 +57,4 @@ void SalaCine::compraBoleto(int lugaresAComprar)
     lugares -= lugaresAComprar;
 }
 
-#endif //HOMEWORK3_SALACINE_H
+#endif 
