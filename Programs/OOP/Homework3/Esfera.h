@@ -1,9 +1,12 @@
-//
-// Created by charles on 29/01/18.
-//
+/*
+Code created by Carlos Estrada
+All rights reserved
+29/01/2017
+Programacion Orientada a Objetos
+*/
 
-#ifndef HOMEWORK3_ESFERA_H
-#define HOMEWORK3_ESFERA_H
+#ifndef ESFERA_H
+#define ESFERA_H
 
 class Esfera
 {
@@ -19,6 +22,7 @@ public:
     float calcVolum();
 
 private:
+
     float radio;
 };
 
@@ -52,4 +56,4 @@ float Esfera::calcVolum()
     return (4.0 * 3.141592 * radio * radio * radio)/3.0;
 }
 
-#endif //HOMEWORK3_ESFERA_H
+#endif 

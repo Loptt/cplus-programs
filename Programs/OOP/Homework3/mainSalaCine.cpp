@@ -1,6 +1,9 @@
-//
-// Created by charles on 29/01/18.
-//
+/*
+Code created by Carlos Estrada
+All rights reserved
+29/01/2017
+Programacion Orientada a Objetos
+*/
 
 #include <iostream>
 #include "SalaCine.h"
@@ -27,7 +30,7 @@ int main()
 
     do
     {
-        cout << "Desea comprar boletos para la funciton " << sala1.getPelicula() << "?" << endl;
+        cout << "Desea comprar boletos para la funcion " << sala1.getPelicula() << "?" << endl;
         cout << "s/n  >>  ";
         cin >> respuesta;
 
@@ -46,7 +49,7 @@ int main()
                 cout << cantidadBoletos << " boletos comprados exitosamente." << endl << endl;
             }
 
-            cout << "Quedan " << sala1.getLugares() << "boletos para la pelicula " << sala1.getPelicula() << endl;
+            cout << "Quedan " << sala1.getLugares() << " boletos para la pelicula " << sala1.getPelicula() << endl;
         }
     }
     while (respuesta == 's');
