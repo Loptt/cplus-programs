@@ -1,3 +1,10 @@
+/**
+@progName Dados
+@desc Programa que tira 2 dados 200 veces y registra su suma
+@author Carlos Estrada
+@Date 16 de enero del 2018
+*/
+
 #include <iostream>
 #include <iomanip>
 #include <ctime>
@@ -5,12 +12,24 @@
 
 using namespace std;
 
+/**
+@funcName generateRandomDices
+@desc Funcion que genera el tirar dos dados
+@param Dos enteros que representan la cara que sale
+@return Funcion tipo void, los valores se pasan como referencia
+*/
 void generateRandomDices(int &iDice1, int &iDice2)
 {
     iDice1 = rand() % 6 + 1;
     iDice2 = rand() % 6 + 1;
 }
 
+/**
+@funcName findBiggestAndSmallest
+@desc Del arreglo de valores resultantes, encuentra las cantidades mas grandes y mas chicas
+@param El arreglo con los valores, un entero representando el mayor y otro con el menor
+@return Funcion tipo void, los valores se pasan como referencia
+*/
 void findBiggestAndSmallest(int iValueAmounts[], int &iBiggest, int &iSmallest)
 {
     int iBigAmount = 0;
@@ -31,6 +50,12 @@ void findBiggestAndSmallest(int iValueAmounts[], int &iBiggest, int &iSmallest)
     }
 }
 
+/**
+@funcName displayDiceData
+@desc Funcion para desplegar en la consola los resultados
+@param El arreglo con los valores, un entero representando el mayor y otro con el menor
+@return Nada
+*/
 void displayDiceData(int iValueAmounts[], int iBiggest, int iSmallest)
 {
     for (int iCounter = 2; iCounter < 13; ++iCounter)
@@ -50,6 +75,12 @@ void displayDiceData(int iValueAmounts[], int iBiggest, int iSmallest)
     cout << "El valor que tiene menos probabilidad de salir es " << iSmallest << endl;
 }
 
+/**
+@funcName main
+@desc Funcion principal que llama a otras funciones
+@param Nada
+@return 0, el programa funciona exitosamente
+*/
 int main()
 {
     int iDice1 = 0;
