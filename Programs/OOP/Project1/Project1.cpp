@@ -26,9 +26,11 @@ void writeInitialHtml(ofstream &outputFile, string sFileName)
     outputFile << "<style>" << endl;
     outputFile << "body { background-color: #FFFFFF; }" << endl;
     outputFile << "div#content { width: 60%; margin: 0 auto; padding: 40px; background-color: #E6F2FF; }" << endl;
+    outputFile << "div#program { padding: 20px; border-radius: 10px; background-color: #FFFFFF;}" << endl;
+    outputFile << "div.function { padding: 20px; margin: 20px; border-radius: 10px; background-color: #FFFFFF;}" << endl;
     outputFile << "h1 { font-family: 'Lato', sans-serif; color: #3b80ef; text-align: center;}" << endl;
-    outputFile << "h3 { font-family: 'Lato', sans-serif;}" << endl;
-    outputFile << "p { font-family: 'Lato', sans-serif;}" << endl;
+    outputFile << "h3 { font-family: 'Lato', sans-serif; color: #666666;}" << endl;
+    outputFile << "p { font-family: 'Lato', sans-serif; color: #666666;}" << endl;
     outputFile << "strong { color: #3b80ef;}" << endl;
     outputFile << "</style>" << endl;
 
@@ -102,17 +104,17 @@ void analyzeComment(ifstream &inputFile, ofstream &outputFile)
         switch (iTypeIndex)
         {
             case 0: //progName
-                outputFile << "<h1><strong>Programa: </strong>" << sLineOfCode.substr(iTypePosition+10);
-                outputFile << "</h1>" << endl;
+                outputFile << "<div id=\"program\"><h1><strong>Programa: </strong>" << sLineOfCode.substr(iTypePosition+10);
+                outputFile << "</h1></div>" << endl;
                 break;
 
             case 1: //funcName
-                outputFile << "<h3><strong>Funcion: </strong>" << sLineOfCode.substr(iTypePosition+10);
+                outputFile << "<div class=\"function\"><h3><strong>Funcion: </strong>" << sLineOfCode.substr(iTypePosition+10);
                 outputFile << "</h3>" << endl;
                 break;
 
             case 2: //author
-                outputFile << "<p><strong>Autor: </strong>" << sLineOfCode.substr(iTypePosition+8);
+                outputFile << "<div><p><strong>Autor: </strong>" << sLineOfCode.substr(iTypePosition+8);
                 outputFile << "</p>" << endl;
                 break;
 
@@ -147,8 +149,7 @@ void analyzeComment(ifstream &inputFile, ofstream &outputFile)
 
         iTypeIndex = 7;
     }
-
-    outputFile << "<hr>" << endl;
+    outputFile << "</div>" << endl;
 }
 
 /**
