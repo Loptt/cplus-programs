@@ -11,26 +11,29 @@ class Autor
 {
 public:
     Autor();
+    Autor(int idAutor, std::string nombre);
 
-    int getIdAutor();
-    std::string getNombre();
+    int getIdAutor() {return idAutor;}
+    std::string getNombre() {return nombre;}
 
     void setIdAutor(int idAutor);
-    void setNombre(const std::string &nombre);
+    void setNombre(std::string nombre);
 
 private:
     int idAutor;
     std::string nombre;
 };
 
-int Autor::getIdAutor()
+Autor::Autor()
 {
-    return idAutor;
+    idAutor = 0;
+    nombre = "No asignado";
 }
 
-std::string Autor::getNombre()
+Autor::Autor(int idAutor, std::string nombre)
 {
-    return nombre;
+    this->idAutor = idAutor;
+    this->nombre = nombre;
 }
 
 void Autor::setIdAutor(int idAutor)

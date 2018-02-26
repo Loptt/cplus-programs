@@ -56,7 +56,7 @@ void Termino::setVariable(char variable)
 
 void Termino::setExponente(int exponente)
 {
-	if (exponente < 0)
+	if (exponente <= 0)
 	{
 		exponente = 1;
 	}

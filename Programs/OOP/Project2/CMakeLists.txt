@@ -3,4 +3,4 @@ project(Project2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Project2 main.cpp Autor.h)
+add_executable(Project2 main.cpp Autor.h Fecha.h)

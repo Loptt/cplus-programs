@@ -3,7 +3,6 @@ class Fraccion
 public:
     Fraccion();
     Fraccion(int, int);
-    ~Fraccion();
 
     void setNum(int);
     void setDen(int);
@@ -38,11 +37,6 @@ Fraccion::Fraccion(int num, int den)
     }
 }
 
-Fraccion::~Fraccion()
-{
-
-}
-
 void Fraccion::setNum(int num)
 {
     this->num = num;
@@ -55,7 +49,7 @@ void Fraccion::setDen(int den)
     if (den < 0)
     {
         num *= -1;
-        den *= -1;
+        this->den *= -1;
     }
 }
 
