@@ -87,7 +87,16 @@
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Autor.h">
 			<Option target="Project2"/>
 		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/EjemploVideo.h">
+			<Option target="Project2"/>
+		</Unit>
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Fecha.h">
+			<Option target="Project2"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Materia.h">
+			<Option target="Project2"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Tema.h">
 			<Option target="Project2"/>
 		</Unit>
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/main.cpp">

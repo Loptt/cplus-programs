@@ -1,5 +1,5 @@
 //
-// Created by charles on 23/02/18.
+// Created by Carlos Estrada on 23/02/18.
 //
 
 #ifndef PROJECT2_AUTOR_H
