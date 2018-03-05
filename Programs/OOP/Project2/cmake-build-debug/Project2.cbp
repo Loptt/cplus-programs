@@ -105,5 +105,17 @@
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Autores.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/EjemploVideo.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Temas.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project2/Materias.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
 	</Project>
 </CodeBlocks_project_file>

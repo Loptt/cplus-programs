@@ -26,7 +26,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/charles/Development/clion-2017.3.2/bin/cmake/share/cmake-3.9/Modules/Platform/Linux.cmake"
   "/home/charles/Development/clion-2017.3.2/bin/cmake/share/cmake-3.9/Modules/Platform/UnixPaths.cmake"
   "/home/charles/Development/clion-2017.3.2/bin/cmake/share/cmake-3.9/Modules/ProcessorCount.cmake"
+  "../Autores.txt"
   "../CMakeLists.txt"
+  "../EjemploVideo.txt"
+  "../Materias.txt"
+  "../Temas.txt"
   "CMakeFiles/3.9.6/CMakeCCompiler.cmake"
   "CMakeFiles/3.9.6/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.9.6/CMakeSystem.cmake"
@@ -40,6 +44,10 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "Autores.txt"
+  "EjemploVideo.txt"
+  "Temas.txt"
+  "Materias.txt"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

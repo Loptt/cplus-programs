@@ -5,7 +5,6 @@
 #ifndef PROJECT2_FECHA_H
 #define PROJECT2_FECHA_H
 
-
 class Fecha
 {
 public:
@@ -32,7 +31,7 @@ Fecha::Fecha()
 {
     dd = 1;
     mm = 1;
-    aa = 0;
+    aa = 2000;
 }
 
 

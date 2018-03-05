@@ -10,10 +10,12 @@
 class Materia
 {
 public:
+    Materia();
     Materia(int, std::string);
 
-    int getIdMateria() const {return idMateria}
+    int getIdMateria() const {return idMateria;}
     std::string getNombre() const {return nombre;}
+
     void setIdMateria(int idMateria);
     void setNombre(std::string nombre);
 
@@ -21,6 +23,12 @@ private:
     int idMateria;
     std::string nombre;
 };
+
+Materia::Materia()
+{
+    idMateria = 0;
+    nombre = "No asignado";
+}
 
 Materia::Materia(int idMateria, std::string nombre)
 {

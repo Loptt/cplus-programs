@@ -22,8 +22,8 @@ public:
     std::string getNombre() const {return nombre;}
     int getIdTema() const {return idTema;}
     Fecha getFecha() const {return fechaElaboracion;}
-    int getCantidadAutores() const {return cantidadAutores};
-    int getListaAutores(int index) {return listaAutores[index];}
+    int getCantidadAutores() const {return cantidadAutores;}
+    int getListaAutores(int index) const {return listaAutores[index];}
 
     bool agregarAutor(int idAutor);
 
@@ -44,6 +44,7 @@ EjemploVideo::EjemploVideo()
     nombre = "No asignado";
     idTema = 0;
     cantidadAutores = 0;
+    fechaElaboracion.setFecha(0,0,2000);
 
     for (int iCounter = 0; iCounter < 10; ++iCounter)
     {
