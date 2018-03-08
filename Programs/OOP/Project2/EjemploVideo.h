@@ -74,22 +74,24 @@ void EjemploVideo::setFechaElaboracion(Fecha fechaElaboracion)
 
 bool EjemploVideo::agregarAutor(int idAutor)
 {
-    for (int iCounter = 0; iCounter < cantidadAutores; ++iCounter)
+    if (cantidadAutores < 10)
     {
-        if (listaAutores[iCounter] == idAutor)
+        for (int iCounter = 0; iCounter < cantidadAutores; ++iCounter)
         {
-            return false;
+            if (listaAutores[iCounter] == idAutor)
+            {
+                return false;
+            }
         }
 
-        if (!listaAutores[iCounter])
-        {
-            listaAutores[iCounter] = idAutor;
-            cantidadAutores++;
-            return true;
-        }
+        listaAutores[cantidadAutores] = idAutor;
+        cantidadAutores++;
+        return true;
     }
-
-    return false;
+    else
+    {
+        return false;
+    }
 }
 
 

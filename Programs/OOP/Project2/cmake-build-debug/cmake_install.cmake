@@ -1,4 +1,4 @@
-# Install script for directory: /home/charles/Github/cplus-programs/Programs/OOP/Project2
+# Install script for directory: /home/charles/Documents/Programming/Github/cplus-programs/Programs/OOP/Project2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/charles/Github/cplus-programs/Programs/OOP/Project2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/charles/Documents/Programming/Github/cplus-programs/Programs/OOP/Project2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

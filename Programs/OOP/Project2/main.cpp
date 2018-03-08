@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 #include "Autor.h"
@@ -76,21 +77,20 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
                         int cantAutores)
 {
     ifstream inputFile;
-    inputFile.open("Autores.txt");
+    inputFile.open("EjemploVideo.txt");
     int cantidad = 0;
 
     bool validTema = false;
-    bool validAutor = false;
-    bool validInput;
+    bool validAutor = true;
 
-    int idVideo, idTema, dd, mm, aa, autores, idAutor;
+    int idVideo, idTema, dd, mm, aa, cantLisAutores, idAutor;
     string nombreVideo;
     Fecha fecha;
 
-    while(inputFile >> idVideo >> nombreVideo >> idTema >> dd >> mm >> aa >> autores)
+    while(inputFile >> idVideo >> nombreVideo >> idTema >> dd >> mm >> aa >> cantLisAutores)
     {
-        int arrPosAutores[autores];
-        for (int counter = 0; counter < autores; ++counter)
+        int arrPosAutores[cantLisAutores];
+        for (int counter = 0; counter < cantLisAutores; ++counter)
         {
             inputFile >> idAutor;
 
@@ -98,8 +98,19 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
             {
                 if (arrAutores[counter2].getIdAutor() == idAutor)
                 {
-                    validAutor = true;
+                    break;
                 }
+
+                if (counter2 == cantAutores-1)
+                {
+                    cout << idAutor << endl;
+                    validAutor = false;
+                }
+            }
+
+            if(!validAutor)
+            {
+                break;
             }
 
             arrPosAutores[counter] = idAutor;
@@ -122,12 +133,12 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
             arrEjemploVideos[cantidad].setIdTema(idTema);
             arrEjemploVideos[cantidad].setFechaElaboracion(fecha);
 
-            for (int counter = 0; counter < autores; ++counter)
+            for (int counter = 0; counter < cantLisAutores; ++counter)
             {
                 if (!arrEjemploVideos[cantidad].agregarAutor(arrPosAutores[counter]))
                 {
                     cout << "No se pudo agregar el siguiente id de Autor al video: " << arrPosAutores[counter];
-                    cout << "ya sea que se repite el id, o la cantidad de autores maxima por video se ha alcanzado";
+                    cout << " ya sea que se repite el id, o la cantidad de autores maxima por video se ha alcanzado";
                     cout << endl;
                 }
             }
@@ -138,12 +149,72 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
         {
             cout << "El renglon numero " << cantidad+1 << " del archivo EjemploVideo contiene informacion erronea.";
             cout << " Por lo tanto no pudo ser agregada" << endl;
-            cantidad++;
         }
 
-
+        validTema = false;
+        validAutor = true;
 
     }
+}
+
+char muestraMenu()
+{
+    cout << "MENU:" << endl;
+    cout << "a) Consultar información de Materias, Temas y Autores." << endl;
+    cout << "b) Dar de alta Videos de Ejemplo." << endl;
+    cout << "c) Consultar la lista de Videos por tema." << endl;
+    cout << "d) Consultar la lista de Videos por materia" << endl;
+    cout << "e) Consultar lista de Videos." << endl;
+    cout << "f) Consultar videos por autor." << endl;
+    cout << "g) Terminar." << endl << endl;
+
+    char respuesta;
+    cin >> respuesta;
+
+    return respuesta;
+}
+
+void muestraMaterias(Materia arrMaterias[], int cantMaterias)
+{
+    cout << "ID de Materia   " << "Nombre de Materia" << endl;
+
+    for (int iCounter = 0; iCounter < cantMaterias; ++iCounter)
+    {
+        cout << setw(10) << arrMaterias[iCounter].getIdMateria();
+        cout << "    " << arrMaterias[iCounter].getNombre();
+        cout << endl;
+    }
+
+    cout << endl;
+}
+
+void muestraTemas(Tema arrTemas[], int cantTemas)
+{
+    cout << "ID de Tema   "  << "ID de Materia   "<< "Nombre de Materia" << endl;
+
+    for (int iCounter = 0; iCounter < cantTemas; ++iCounter)
+    {
+        cout << setw(10) << arrTemas[iCounter].getIdTema();
+        cout << setw(10) << arrTemas[iCounter].getIdMateria();
+        cout << "    " << arrTemas[iCounter].getNombre();
+        cout << endl;
+    }
+
+    cout << endl;
+}
+
+void muestraAutores(Autor arrAutores[], int cantAutores)
+{
+    cout << "ID de Materia   " << "Nombre de Materia" << endl;
+
+    for (int iCounter = 0; iCounter < cantAutores; ++iCounter)
+    {
+        cout << setw(10) << arrAutores[iCounter].getIdAutor();
+        cout << "    " << arrAutores[iCounter].getNombre();
+        cout << endl;
+    }
+
+    cout << endl;
 }
 
 int main()
@@ -159,6 +230,34 @@ int main()
     cantidadTemas = cargarTemas(arrTemas);
     cantidadAutores = cargarAutores(arrAutores);
     cantidadVideos = cargarEjemploVideos(arrEjemploVideos, arrTemas, arrAutores, cantidadTemas, cantidadAutores);
+
+    char respuesta = muestraMenu();
+
+    while (respuesta != 'g')
+    {
+        switch (respuesta)
+        {
+            case 'a':
+                muestraMaterias(arrMaterias, cantidadMaterias);
+                muestraTemas(arrTemas, cantidadTemas);
+                muestraAutores(arrAutores, cantidadAutores);
+                
+                break;
+            case 'b':
+                break;
+            case 'c':
+                break;
+            case 'd':
+                break;
+            case 'e':
+                break;
+            case 'f':
+                break;
+            default:
+                cout << "Opcion invalida, vuelve a intentar" << endl << endl;
+        }
+        respuesta = muestraMenu();
+    }
 
 
 
