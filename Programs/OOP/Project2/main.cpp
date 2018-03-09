@@ -234,6 +234,8 @@ void muestraAutores(Autor arrAutores[], int cantAutores)
 int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[],
                      int cantVideos, int cantTemas, int cantAutores)
 {
+    int cantidad = cantVideos+1;
+
     int idVideo, idTema, idAutor, cantidadUsuarioAutores, dd, mm, aa;
     string nombreVideo;
     Fecha fecha;
@@ -266,7 +268,7 @@ int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arr
     cout << endl;
     cin.ignore();
 
-    arrEjemploVideos[cantVideos++].setIdVideo(idVideo);
+    arrEjemploVideos[cantVideos].setIdVideo(idVideo);
 
     cout << "Introduce el nombre del video" << endl << "-->";
     getline(cin, nombreVideo);
@@ -287,6 +289,8 @@ int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arr
 
     }
     while (!validData);
+
+    arrEjemploVideos[cantVideos].setIdTema(idTema);
 
     cout << "Introduce el dia de elaboracion -->";
     cin >> dd;
@@ -335,25 +339,247 @@ int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arr
             {
                 cout << "El ID ingresado no corresponde a ningun autor. Vuelve a introducirlo." << endl;
             }
-        }
-        while(!validData);
-
-        validData = true;
-
-        do
-        {
-            validData = arrEjemploVideos[cantVideos].agregarAutor(idAutor);
-
-            if (!validData)
+            else
             {
-                cout << "El ID de autor ya ha sido agregaado. Por favor introduce otro" << endl;
-                cin >> idAutor;
+                validData = arrEjemploVideos[cantVideos].agregarAutor(idAutor);
+
+                if(!validData)
+                {
+                    cout << "El ID de autor ya ha sido agregaado. Por favor introduce otro" << endl;
+                }
             }
+
+
         }
         while(!validData);
     }
 
-    return cantVideos;
+    return cantidad;
+
+}
+
+void despliegarPorTema(int idTema, EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[], int cantVideos,
+                       int cantTemas, int cantAutores)
+{
+    int dd, mm, aa;
+
+    bool videoEncontrado = false;
+
+    for (int iCounter = 0; iCounter < cantVideos; ++iCounter)
+    {
+        if (arrEjemploVideos[iCounter].getIdTema() == idTema)
+        {
+            videoEncontrado = true;
+
+            cout << "ID de video: " << arrEjemploVideos[iCounter].getIdVideo() << endl;
+            cout << "Nombre de video: " << arrEjemploVideos[iCounter].getNombre() << endl;
+
+            cout << "Tema: ";
+
+            for (int iCounter2 = 0; iCounter2 < cantTemas; ++iCounter2)
+            {
+                if (arrTemas[iCounter2].getIdTema() == idTema)
+                {
+                    cout << arrTemas[iCounter2].getNombre() << endl;
+                    break;
+                }
+            }
+
+            dd = arrEjemploVideos[iCounter].getFecha().getDd();
+            mm = arrEjemploVideos[iCounter].getFecha().getMm();
+            aa = arrEjemploVideos[iCounter].getFecha().getAa();
+
+            cout << "Fecha de Elaboracion: " << dd << "/" << mm << "/" << aa << endl;
+
+            cout << "Autor(es): " << endl;
+
+            for (int iCounter2 = 0; iCounter2 < arrEjemploVideos[iCounter].getCantidadAutores(); ++iCounter2)
+            {
+                for (int iCounter3 = 0; iCounter3 < cantAutores; ++iCounter3)
+                {
+                    if (arrEjemploVideos[iCounter].getListaAutores(iCounter2) == arrAutores[iCounter3].getIdAutor())
+                    {
+                        cout << "   " << arrAutores[iCounter3].getNombre() << endl;
+                    }
+                }
+            }
+
+            cout << endl;
+        }
+    }
+
+    if (!videoEncontrado)
+    {
+        cout << "No existen videos para este tema" << endl << endl;
+    }
+}
+
+void mostrarVideosPorTema(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[], int cantVideos,
+                          int cantTemas, int cantAutores)
+{
+    int idTema;
+
+    bool validId = false;
+
+    cout << "Introduce el ID del tema para ver los videos asociados con este -->";
+
+    do
+    {
+        cin >> idTema;
+
+        validId = validarTema(arrTemas, cantTemas, idTema);
+
+        if (!validId)
+        {
+            cout << "ID de tema no valido. Por favor introduce otro." << endl;
+        }
+    }
+    while (!validId);
+
+    cout << endl;
+
+    cout << endl << "LISTA DE LOS VIDEOS POR TEMA" << endl << endl;
+
+    despliegarPorTema(idTema, arrEjemploVideos, arrTemas, arrAutores, cantVideos, cantTemas, cantAutores);
+
+}
+
+void mostrarVideosPorMateria(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[],
+                             Materia arrMaterias[], int cantVideos, int cantTemas, int cantAutores, int cantMaterias)
+{
+    int idMateria;
+    bool validId = false;
+
+    cout << "Introduce el ID de la materia para ver los videos asociados con este -->";
+
+    do
+    {
+        cin >> idMateria;
+
+        for (int iCounter = 0; iCounter < cantMaterias; ++iCounter)
+        {
+            if (arrMaterias[iCounter].getIdMateria() == idMateria)
+            {
+                validId = true;
+                break;
+            }
+            else
+            {
+                validId = false;
+            }
+        }
+
+        if (!validId)
+        {
+            cout << "El ID de la materia no existe. Por favor intenta con otro." << endl;
+        }
+    }
+    while(!validId);
+
+    cout << endl << "LISTA DE LOS VIDEOS POR MATERIA" << endl << endl;
+
+    for (int iCounter = 0; iCounter < cantTemas; ++iCounter)
+    {
+        if (arrTemas[iCounter].getIdMateria() == idMateria)
+        {
+            despliegarPorTema(arrTemas[iCounter].getIdTema(), arrEjemploVideos, arrTemas, arrAutores, cantVideos,
+                              cantTemas, cantAutores);
+        }
+    }
+}
+
+void mostrarTodosVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[],
+                        Materia arrMaterias[], int cantVideos, int cantTemas, int cantAutores, int cantMaterias)
+{
+    int dd, mm, aa, indexTema;
+
+    cout << "LISTA DE TODOS LOS VIDEOS" << endl << endl;
+
+    for (int iCounter = 0; iCounter < cantVideos; ++iCounter)
+    {
+        cout << "ID del video: " << arrEjemploVideos[iCounter].getIdVideo() << endl;
+        cout << "Nombre del video: " << arrEjemploVideos[iCounter].getNombre() << endl;
+        cout << "Tema: ";
+
+        for (int iCounter2 = 0; iCounter2 < cantTemas; ++iCounter2)
+        {
+            if (arrTemas[iCounter2].getIdTema() == arrEjemploVideos[iCounter].getIdTema())
+            {
+                cout << arrTemas[iCounter2].getNombre() << endl;
+                indexTema = iCounter2;
+                break;
+            }
+        }
+
+        cout << "Materia: ";
+
+        for (int iCounter2 = 0; iCounter2 < cantMaterias; ++iCounter2)
+        {
+            if (arrMaterias[iCounter2].getIdMateria() == arrTemas[indexTema].getIdMateria())
+            {
+                cout << arrMaterias[iCounter2].getNombre() << endl;
+                break;
+            }
+        }
+
+        dd = arrEjemploVideos[iCounter].getFecha().getDd();
+        mm = arrEjemploVideos[iCounter].getFecha().getMm();
+        aa = arrEjemploVideos[iCounter].getFecha().getAa();
+
+        cout << "Fecha de Elaboracion: " << dd << "/" << mm << "/" << aa << endl;
+
+        cout << "Autor(es): " << endl;
+
+        for (int iCounter2 = 0; iCounter2 < arrEjemploVideos[iCounter].getCantidadAutores(); ++iCounter2)
+        {
+            for (int iCounter3 = 0; iCounter3 < cantAutores; ++iCounter3)
+            {
+                if (arrEjemploVideos[iCounter].getListaAutores(iCounter2) == arrAutores[iCounter3].getIdAutor())
+                {
+                    cout << "   " << arrAutores[iCounter3].getNombre() << endl;
+                }
+            }
+        }
+
+        cout << endl;
+    }
+}
+
+void mostrarVideosPorAutor(EjemploVideo arrEjemploVideos[], Autor arrAutores[], int cantVideos, int cantAutores)
+{
+    int idAutor;
+    bool validId = false;
+
+    cout << "Introduce el ID del autor para buscar --> ";
+
+    do
+    {
+        cin >> idAutor;
+        validId = validarAutor(arrAutores, cantAutores, idAutor);
+
+        if (!validId)
+        {
+            cout << "ID no valido. Por favor ingresa un ID correcto." << endl;
+        }
+    }
+    while (!validId);
+
+    cout << endl << "LISTA DE LOS VIDEOS POR AUTOR" << endl << endl;
+
+    for (int iCounter = 0; iCounter < cantVideos; ++iCounter)
+    {
+        for (int iCounter2 = 0; iCounter2 < arrEjemploVideos[iCounter].getCantidadAutores(); ++iCounter2)
+        {
+            if (arrEjemploVideos[iCounter].getListaAutores(iCounter2) == idAutor)
+            {
+                cout << "ID de video: " << arrEjemploVideos[iCounter].getIdVideo() << endl;
+                cout << "Nombre de video: " << arrEjemploVideos[iCounter].getNombre() << endl;
+                break;
+            }
+        }
+
+        cout << endl;
+    }
 
 }
 
@@ -379,27 +605,42 @@ int main()
 
         switch (respuesta)
         {
-            case 'a':
+            case 'a':  //Desplegar informacion
                 muestraMaterias(arrMaterias, cantidadMaterias);
                 muestraTemas(arrTemas, cantidadTemas);
                 muestraAutores(arrAutores, cantidadAutores);
 
                 break;
-            case 'b':
-                cantidadVideos = agregaNuevoVideo(arrEjemploVideos, arrTemas, arrAutores, cantidadTemas,
-                                 cantidadAutores, cantidadVideos);
+
+            case 'b': //Agregar nuevo video
+                cantidadVideos = agregaNuevoVideo(arrEjemploVideos, arrTemas, arrAutores, cantidadVideos,
+                                 cantidadTemas, cantidadAutores);
+                break;
+
+            case 'c': //Mostrar videos por id de tema
+                mostrarVideosPorTema(arrEjemploVideos, arrTemas, arrAutores, cantidadVideos, cantidadTemas,
+                                    cantidadAutores);
+                break;
+
+            case 'd': //Mostrar videos por materia
+                mostrarVideosPorMateria(arrEjemploVideos, arrTemas, arrAutores, arrMaterias, cantidadVideos,
+                                        cantidadTemas, cantidadAutores, cantidadMaterias);
 
                 break;
-            case 'c':
+
+            case 'e': //Mostrar todos los videos
+                mostrarTodosVideos(arrEjemploVideos, arrTemas, arrAutores, arrMaterias, cantidadVideos,
+                                   cantidadTemas, cantidadAutores, cantidadMaterias);
+
                 break;
-            case 'd':
-                break;
-            case 'e':
-                break;
+
             case 'f':
+                mostrarVideosPorAutor(arrEjemploVideos, arrAutores, cantidadVideos, cantidadAutores);
                 break;
+
             case 'g':
                 break;
+
             default:
                 cout << "Opcion invalida, vuelve a intentar" << endl << endl;
                 break;
