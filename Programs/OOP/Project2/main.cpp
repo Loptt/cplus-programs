@@ -195,7 +195,7 @@ void muestraMaterias(Materia arrMaterias[], int cantMaterias)
     for (int iCounter = 0; iCounter < cantMaterias; ++iCounter)
     {
         cout << setw(10) << arrMaterias[iCounter].getIdMateria();
-        cout << "    " << arrMaterias[iCounter].getNombre();
+        cout << "     " << arrMaterias[iCounter].getNombre();
         cout << endl;
     }
 
@@ -208,9 +208,9 @@ void muestraTemas(Tema arrTemas[], int cantTemas)
 
     for (int iCounter = 0; iCounter < cantTemas; ++iCounter)
     {
-        cout << setw(10) << arrTemas[iCounter].getIdTema();
-        cout << setw(10) << arrTemas[iCounter].getIdMateria();
-        cout << "    " << arrTemas[iCounter].getNombre();
+        cout << setw(7) << arrTemas[iCounter].getIdTema();
+        cout << setw(13) << arrTemas[iCounter].getIdMateria();
+        cout << "        " << arrTemas[iCounter].getNombre();
         cout << endl;
     }
 
@@ -219,12 +219,12 @@ void muestraTemas(Tema arrTemas[], int cantTemas)
 
 void muestraAutores(Autor arrAutores[], int cantAutores)
 {
-    cout << "ID de Materia   " << "Nombre de Autor" << endl;
+    cout << "ID de Autor   " << "Nombre de Autor" << endl;
 
     for (int iCounter = 0; iCounter < cantAutores; ++iCounter)
     {
-        cout << setw(10) << arrAutores[iCounter].getIdAutor();
-        cout << "    " << arrAutores[iCounter].getNombre();
+        cout << setw(6) << arrAutores[iCounter].getIdAutor();
+        cout << "       " << arrAutores[iCounter].getNombre();
         cout << endl;
     }
 
@@ -234,7 +234,7 @@ void muestraAutores(Autor arrAutores[], int cantAutores)
 int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[],
                      int cantVideos, int cantTemas, int cantAutores)
 {
-    int idVideo, idTema, cantidadUsuarioAutores;
+    int idVideo, idTema, idAutor, cantidadUsuarioAutores, dd, mm, aa;
     string nombreVideo;
     Fecha fecha;
 
@@ -262,14 +262,96 @@ int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arr
 
     }
     while(!validData);
+
     cout << endl;
+    cin.ignore();
 
     arrEjemploVideos[cantVideos++].setIdVideo(idVideo);
 
     cout << "Introduce el nombre del video" << endl << "-->";
     getline(cin, nombreVideo);
 
+    arrEjemploVideos[cantVideos].setNombre(nombreVideo);
 
+    cout << "Introduce el ID del tema" << endl << "-->";
+
+    do
+    {
+        cin >> idTema;
+        validData = validarTema(arrTemas, cantTemas, idTema);
+
+        if (!validData)
+        {
+            cout << "El ID de tema no es valido. Por favor introduce uno nuevamente" << endl;
+        }
+
+    }
+    while (!validData);
+
+    cout << "Introduce el dia de elaboracion -->";
+    cin >> dd;
+    cout << endl;
+
+    cout << "Introduce el mes de elaboracion en numero -->";
+    cin >> mm;
+    cout << endl;
+
+    cout << "Introduce el año de elaboracion  -->";
+    cin >> aa;
+    cout << endl;
+
+    fecha.setFecha(dd, mm, aa);
+    arrEjemploVideos[cantVideos].setFechaElaboracion(fecha);
+
+    cout << "Introduce la cantidad de autores que tiene el video -->";
+
+    do
+    {
+        cin >> cantidadUsuarioAutores;
+
+        if (cantidadUsuarioAutores > 10 || cantidadUsuarioAutores < 1)
+        {
+            validData = false;
+            cout << "La cantidad debe ser un numero entre 1 y 10" << endl;
+        }
+        else
+        {
+            validData = true;
+        }
+    }
+    while(!validData);
+
+    for (int iCounter = 0; iCounter < cantidadUsuarioAutores; ++iCounter)
+    {
+        cout << "Introduce el ID del autor " << iCounter+1 << " -->";
+
+        do
+        {
+            cin >> idAutor;
+            cout << endl;
+            validData = validarAutor(arrAutores, cantAutores, idAutor);
+
+            if (!validData)
+            {
+                cout << "El ID ingresado no corresponde a ningun autor. Vuelve a introducirlo." << endl;
+            }
+        }
+        while(!validData);
+
+        validData = true;
+
+        do
+        {
+            validData = arrEjemploVideos[cantVideos].agregarAutor(idAutor);
+
+            if (!validData)
+            {
+                cout << "El ID de autor ya ha sido agregaado. Por favor introduce otro" << endl;
+                cin >> idAutor;
+            }
+        }
+        while(!validData);
+    }
 
     return cantVideos;
 
@@ -284,26 +366,28 @@ int main()
 
     int cantidadMaterias, cantidadTemas, cantidadAutores, cantidadVideos;
 
+    char respuesta;
+
     cantidadMaterias = cargarMaterias(arrMaterias);
     cantidadTemas = cargarTemas(arrTemas);
     cantidadAutores = cargarAutores(arrAutores);
     cantidadVideos = cargarEjemploVideos(arrEjemploVideos, arrTemas, arrAutores, cantidadTemas, cantidadAutores);
 
-    char respuesta = muestraMenu();
-
-    while (respuesta != 'g')
+    do
     {
+        respuesta = muestraMenu();
+
         switch (respuesta)
         {
             case 'a':
                 muestraMaterias(arrMaterias, cantidadMaterias);
                 muestraTemas(arrTemas, cantidadTemas);
                 muestraAutores(arrAutores, cantidadAutores);
-                
+
                 break;
             case 'b':
-                //cantidadVideos = agregaNuevoVideo(arrTemas, arrAutores, cantidadTemas, cantidadAutores,
-                                                  //cantidadVideos)
+                cantidadVideos = agregaNuevoVideo(arrEjemploVideos, arrTemas, arrAutores, cantidadTemas,
+                                 cantidadAutores, cantidadVideos);
 
                 break;
             case 'c':
@@ -314,14 +398,14 @@ int main()
                 break;
             case 'f':
                 break;
+            case 'g':
+                break;
             default:
                 cout << "Opcion invalida, vuelve a intentar" << endl << endl;
+                break;
         }
-
-        respuesta = muestraMenu();
     }
-
-
+    while(respuesta != 'g');
 
     return 0;
 }
