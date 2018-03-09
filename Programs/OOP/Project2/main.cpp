@@ -9,6 +9,35 @@ using namespace std;
 #include "Tema.h"
 #include "EjemploVideo.h"
 
+bool validarAutor(Autor arrAutores[], int cantAutores, int idAutor)
+{
+    for (int counter2 = 0; counter2 < cantAutores; ++counter2)
+    {
+        if (arrAutores[counter2].getIdAutor() == idAutor)
+        {
+            return true;
+        }
+
+        if (counter2 == cantAutores-1)
+        {
+            return false;
+        }
+    }
+}
+
+bool validarTema(Tema arrTemas[], int cantTemas, int idTema)
+{
+    for (int counter = 0; counter < cantTemas; ++counter)
+    {
+        if (arrTemas[counter].getIdTema() == idTema)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 int cargarMaterias(Materia arrMaterias[])
 {
     ifstream inputFile;
@@ -90,23 +119,12 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
     while(inputFile >> idVideo >> nombreVideo >> idTema >> dd >> mm >> aa >> cantLisAutores)
     {
         int arrPosAutores[cantLisAutores];
+
+        //Validar cada id de autor en la lista del texto
         for (int counter = 0; counter < cantLisAutores; ++counter)
         {
             inputFile >> idAutor;
-
-            for (int counter2 = 0; counter2 < cantAutores; ++counter2)
-            {
-                if (arrAutores[counter2].getIdAutor() == idAutor)
-                {
-                    break;
-                }
-
-                if (counter2 == cantAutores-1)
-                {
-                    cout << idAutor << endl;
-                    validAutor = false;
-                }
-            }
+            validAutor = validarAutor(arrAutores, cantAutores, idAutor);
 
             if(!validAutor)
             {
@@ -116,13 +134,7 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
             arrPosAutores[counter] = idAutor;
         }
 
-        for (int counter = 0; counter < cantTema; ++counter)
-        {
-            if (arrTemas[counter].getIdTema() == idTema)
-            {
-                validTema = true;
-            }
-        }
+        validTema = validarTema(arrTemas, cantTema, idTema);
 
         if (validAutor && validTema)
         {
@@ -155,6 +167,8 @@ int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor 
         validAutor = true;
 
     }
+
+    return cantidad;
 }
 
 char muestraMenu()
@@ -190,7 +204,7 @@ void muestraMaterias(Materia arrMaterias[], int cantMaterias)
 
 void muestraTemas(Tema arrTemas[], int cantTemas)
 {
-    cout << "ID de Tema   "  << "ID de Materia   "<< "Nombre de Materia" << endl;
+    cout << "ID de Tema   "  << "ID de Materia   "<< "Nombre de Tema" << endl;
 
     for (int iCounter = 0; iCounter < cantTemas; ++iCounter)
     {
@@ -205,7 +219,7 @@ void muestraTemas(Tema arrTemas[], int cantTemas)
 
 void muestraAutores(Autor arrAutores[], int cantAutores)
 {
-    cout << "ID de Materia   " << "Nombre de Materia" << endl;
+    cout << "ID de Materia   " << "Nombre de Autor" << endl;
 
     for (int iCounter = 0; iCounter < cantAutores; ++iCounter)
     {
@@ -215,6 +229,50 @@ void muestraAutores(Autor arrAutores[], int cantAutores)
     }
 
     cout << endl;
+}
+
+int agregaNuevoVideo(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[],
+                     int cantVideos, int cantTemas, int cantAutores)
+{
+    int idVideo, idTema, cantidadUsuarioAutores;
+    string nombreVideo;
+    Fecha fecha;
+
+    bool validData = true;
+
+    cout << "Introduce el id del Video" << endl << "-->";
+
+    do
+    {
+        cin >> idVideo;
+
+        for (int iCounter = 0; iCounter < cantVideos; ++iCounter)
+        {
+            if (arrEjemploVideos[iCounter].getIdVideo() == idVideo)
+            {
+                validData = false;
+                cout << "ID de video ya existe. Por favor introduce uno valido" << endl;
+                break;
+            }
+            else
+            {
+                validData = true;
+            }
+        }
+
+    }
+    while(!validData);
+    cout << endl;
+
+    arrEjemploVideos[cantVideos++].setIdVideo(idVideo);
+
+    cout << "Introduce el nombre del video" << endl << "-->";
+    getline(cin, nombreVideo);
+
+
+
+    return cantVideos;
+
 }
 
 int main()
@@ -244,6 +302,9 @@ int main()
                 
                 break;
             case 'b':
+                //cantidadVideos = agregaNuevoVideo(arrTemas, arrAutores, cantidadTemas, cantidadAutores,
+                                                  //cantidadVideos)
+
                 break;
             case 'c':
                 break;
@@ -256,6 +317,7 @@ int main()
             default:
                 cout << "Opcion invalida, vuelve a intentar" << endl << endl;
         }
+
         respuesta = muestraMenu();
     }
 
