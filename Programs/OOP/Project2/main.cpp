@@ -40,8 +40,16 @@ bool validarTema(Tema arrTemas[], int cantTemas, int idTema)
 
 int cargarMaterias(Materia arrMaterias[])
 {
+    string fileName;
+    string fileNameExtension;
+
+    cout << "Introduce el nombre del archivo de las materias: " << endl;
+    cin >> fileName;
+
+    fileNameExtension = fileName + ".txt";
+
     ifstream inputFile;
-    inputFile.open("Materias.txt");
+    inputFile.open(fileNameExtension);
     int cantidad = 0;
 
     int idMateria;
@@ -61,8 +69,16 @@ int cargarMaterias(Materia arrMaterias[])
 
 int cargarTemas(Tema arrTemas[])
 {
+    string fileName;
+    string fileNameExtension;
+
+    cout << "Introduce el nombre del archivo de los temas: " << endl;
+    cin >> fileName;
+
+    fileNameExtension = fileName + ".txt";
+
     ifstream inputFile;
-    inputFile.open("Temas.txt");
+    inputFile.open(fileNameExtension);
     int cantidad = 0;
 
     int idMateria, idTema;
@@ -83,8 +99,16 @@ int cargarTemas(Tema arrTemas[])
 
 int cargarAutores(Autor arrAutores[])
 {
+    string fileName;
+    string fileNameExtension;
+
+    cout << "Introduce el nombre del archivo de los autores: " << endl;
+    cin >> fileName;
+
+    fileNameExtension = fileName + ".txt";
+
     ifstream inputFile;
-    inputFile.open("Autores.txt");
+    inputFile.open(fileNameExtension);
     int cantidad = 0;
 
     int idAutor;
@@ -105,8 +129,16 @@ int cargarAutores(Autor arrAutores[])
 int cargarEjemploVideos(EjemploVideo arrEjemploVideos[], Tema arrTemas[], Autor arrAutores[], int cantTema,
                         int cantAutores)
 {
+    string fileName;
+    string fileNameExtension;
+
+    cout << "Introduce el nombre del archivo de los videos: " << endl;
+    cin >> fileName;
+
+    fileNameExtension = fileName + ".txt";
+
     ifstream inputFile;
-    inputFile.open("EjemploVideo.txt");
+    inputFile.open(fileNameExtension);
     int cantidad = 0;
 
     bool validTema = false;
@@ -549,6 +581,7 @@ void mostrarVideosPorAutor(EjemploVideo arrEjemploVideos[], Autor arrAutores[], 
 {
     int idAutor;
     bool validId = false;
+    bool hayVideos = false;
 
     cout << "Introduce el ID del autor para buscar --> ";
 
@@ -574,11 +607,17 @@ void mostrarVideosPorAutor(EjemploVideo arrEjemploVideos[], Autor arrAutores[], 
             {
                 cout << "ID de video: " << arrEjemploVideos[iCounter].getIdVideo() << endl;
                 cout << "Nombre de video: " << arrEjemploVideos[iCounter].getNombre() << endl;
+                hayVideos = true;
                 break;
             }
         }
 
         cout << endl;
+    }
+
+    if (!hayVideos)
+    {
+        cout << "No hay videos para este autor" << endl << endl << endl;
     }
 
 }
