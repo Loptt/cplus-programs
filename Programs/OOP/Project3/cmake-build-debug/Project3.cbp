@@ -84,13 +84,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/Disco.h">
+			<Option target="Project3"/>
+		</Unit>
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/Fecha.h">
+			<Option target="Project3"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/Libro.h">
+			<Option target="Project3"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.h">
 			<Option target="Project3"/>
 		</Unit>
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/main.cpp">
 			<Option target="Project3"/>
 		</Unit>
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/test.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

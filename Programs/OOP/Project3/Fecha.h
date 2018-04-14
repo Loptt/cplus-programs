@@ -50,11 +50,61 @@ private:
 
     int calculaMaxDias(int, int);
     bool esBiciesto(int);
+    bool esBiciesto();
+
+    string nombreMes();
 };
 
 bool Fecha::esBiciesto(int anio)
 {
     return (!(anio % 4) || (anio % 100 && !(anio % 400)));
+}
+
+bool Fecha::esBiciesto()
+{
+    return (!(aa % 4) || (aa % 100 && !(aa % 400)));
+}
+
+string Fecha::nombreMes()
+{
+    switch(mm)
+    {
+        case 1:
+            return "Ene";
+
+        case 2:
+            return "Feb";
+
+        case 3:
+            return "Mar";
+
+        case 4:
+            return "Abr";
+
+        case 5:
+            return "May";
+
+        case 6:
+            return "Jun";
+
+        case 7:
+            return "Jul";
+
+        case 8:
+            return "Ago";
+
+        case 9:
+            return "Sep";
+
+        case 10:
+            return "Oct";
+
+        case 11:
+            return "Nov";
+
+        case 12:
+            return "Dic";
+    }
 }
 
 int Fecha::calculaMaxDias(int mes, int anio)
@@ -99,7 +149,32 @@ bool operator==(Fecha f1, Fecha f2)
 
 bool operator>(Fecha f1, Fecha f2)
 {
-    return f1.aa > f2.aa && f1.mm > f2.mm && f1.dd > f2.dd;
+    if (f1.aa > f2.aa)
+    {
+        return true;
+    }
+    else
+    {
+        if (f1.aa == f2.aa)
+        {
+            if (f1.mm > f2.mm)
+            {
+                return true;
+            }
+            else
+            {
+                if (f1.mm == f2.mm)
+                {
+                    if (f1.dd > f2.dd)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 bool operator>=(Fecha f1, Fecha f2)
@@ -109,7 +184,7 @@ bool operator>=(Fecha f1, Fecha f2)
 
 bool operator<(Fecha f1, Fecha f2)
 {
-    return !(f1>f2);
+    return !(f1>=f2);
 }
 
 bool operator<=(Fecha f1, Fecha f2)

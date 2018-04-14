@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 #include "Fecha.h"
 
@@ -7,11 +8,16 @@ int main() {
 
     Fecha f1, f2, f3, f4, f5, f6;
 
+    ifstream file;
+    file.open("test.txt");
+
     int op;
     // opcion 1 ==, 2 +, 3 <=, 4 >=, 5 >, 6 <
-    cin >> op;
+    file >> op;
+    //cin >> op;
 
-    cin >> f1 ;
+    file >> f1 >> f2 >> f3;
+    //cin >> f2 >> f2 >> f3;
 
     switch (op) {
 
