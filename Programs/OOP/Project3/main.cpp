@@ -11,7 +11,7 @@ int main() {
     // opcion 1 ==, 2 +, 3 <=, 4 >=, 5 >, 6 <
     cin >> op;
 
-    cin >> f1 >> f2 >> f3;
+    cin >> f1 ;
 
     switch (op) {
 

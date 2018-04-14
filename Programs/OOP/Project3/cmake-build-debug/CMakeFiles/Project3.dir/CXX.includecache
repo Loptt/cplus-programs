@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Fecha.h
+iostream
+-
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/main.cpp
+iostream
+-
+Fecha.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Fecha.h
+

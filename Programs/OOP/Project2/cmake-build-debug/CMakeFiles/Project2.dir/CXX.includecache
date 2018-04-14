@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Autor.h
+string
+-
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/EjemploVideo.h
+string
+-
+Fecha.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Fecha.h
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Fecha.h
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Materia.h
+string
+-
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Tema.h
+string
+-
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/main.cpp
+iostream
+-
+fstream
+-
+string
+-
+Autor.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Autor.h
+Materia.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Materia.h
+Tema.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/Tema.h
+EjemploVideo.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project2/EjemploVideo.h
+

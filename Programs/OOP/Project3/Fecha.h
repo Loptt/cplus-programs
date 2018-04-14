@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 using namespace std;
 
@@ -24,16 +22,16 @@ class Fecha
     // que recibe como parametro una fecha y un numero entero
     // que representa una cantidad de dias y regresa
     // la fecha a la que se le agregaron los dias indicados
-    friend Fecha operator + (Fecha f1, int dias);
+    friend Fecha operator + (Fecha f1, int diasAgregar);
 
     // como friend la sobrecarga del operador >>
     // que lee 3 valores enteros: dia, mes, anio con 4 digitos
-    friend istream operator >> ();
+    friend istream& operator >> (istream &is, Fecha &f1);
 
     // como friend la sobrecarga del operador <<
     // que muestra la fecha en el formato dd/mm/aaaa
     // no incluyas espacios ni enter
-    friend ostream operator << ();
+    friend ostream& operator << (ostream &os, Fecha f1);
 
 
 public:
@@ -50,18 +48,18 @@ private:
     // atributos
     int dd, mm, aa;
 
-    int calculaMaxDias();
-    bool esBiciesto();
+    int calculaMaxDias(int, int);
+    bool esBiciesto(int);
 };
 
-bool Fecha::esBiciesto()
+bool Fecha::esBiciesto(int anio)
 {
-    return (!(aa % 4) && aa % 100 && !(aa % 400));
+    return (!(anio % 4) || (anio % 100 && !(anio % 400)));
 }
 
-int Fecha::calculaMaxDias()
+int Fecha::calculaMaxDias(int mes, int anio)
 {
-    switch (mm)
+    switch (mes)
     {
         case 1:
         case 3:
@@ -80,7 +78,7 @@ int Fecha::calculaMaxDias()
 
         case 2:
 
-            if(esBiciesto())
+            if(esBiciesto(anio))
             {
                 return 29;
             }
@@ -94,7 +92,7 @@ int Fecha::calculaMaxDias()
     }
 }
 
-bool friend operator==(Fecha f1, Fecha f2)
+bool operator==(Fecha f1, Fecha f2)
 {
     return f1.aa == f2.aa && f1.mm == f2.mm && f1.dd == f2.dd;
 }
@@ -121,29 +119,60 @@ bool operator<=(Fecha f1, Fecha f2)
 
 Fecha operator+(Fecha f1, int diasAgregar)
 {
-    int maxDias = f1.calculaMaxDias();
+    int maxDias = f1.calculaMaxDias(f1.mm, f1.aa);
+    int diaActual = f1.dd;
+    int mesActual = f1.mm;
+    int anioActual = f1.aa;
 
-    int diasSobrantes;
+    int diasSobrantes = diasAgregar - maxDias + diaActual;
 
-    do
+    while(diasSobrantes > 0)
     {
-        diasSobrantes = diasAgregar - maxDias;
 
-        if (diasSobrantes > 0 )
+        if (++mesActual > 12)
         {
-            if (++f1.mm > 12)
-            {
-                ++f1.aa;
-                f1.mm = 1;
-            }
+            ++anioActual;
+            mesActual = 1;
         }
 
-        maxDias = f1.calculaMaxDias();
+        diasAgregar -= maxDias;
+
+        maxDias = f1.calculaMaxDias(mesActual, anioActual);
+        diasSobrantes = diasAgregar - maxDias;
 
     }
-    while (diasSobrantes > 0);
 
-    return f1;
+    diaActual += maxDias + diasSobrantes;
+
+    if (diaActual > maxDias)
+    {
+        if(++mesActual > 12)
+        {
+            ++anioActual;
+            mesActual = 1;
+        }
+
+        diaActual -= maxDias;
+    }
+
+    Fecha resultado(diaActual, mesActual, anioActual);
+
+    return resultado;
 
 
+}
+
+istream &operator>>(istream &is, Fecha &f1)
+{
+    is >> f1.dd;
+    is >> f1.mm;
+    is >> f1.aa;
+
+    return is;
+}
+
+ostream &operator<<(ostream &os, Fecha f1)
+{
+    os << f1.dd << "/" << f1.mm << "/" << f1.aa;
+    return os;
 }
