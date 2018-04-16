@@ -2,126 +2,70 @@
 #include <fstream>
 using namespace std;
 #include "Fecha.h"
+#include "Material.h"
+#include "Reserva.h"
+#include "Libro.h"
+#include "Disco.h"
+#include "Software.h"
 
+int cargarMateriales(Material* arrMateriales[])
+{
+    ifstream inputFile;
+    inputFile.open("Material.txt");
 
-int main() {
+    int cantMaterial = 0;
 
-    Fecha f1, f2, f3, f4, f5, f6;
+    int idMaterial, duracion, numPags;
+    string titulo, sistemaOper, autor;
+    char tipo;
 
-    ifstream file;
-    file.open("test.txt");
+    while (inputFile >> idMaterial >> titulo >> tipo)
+    {
+        switch(tipo)
+        {
+            case 'L':
+                inputFile >> numPags >> autor;
+                arrMateriales[cantMaterial] = new Libro(idMaterial,titulo,numPags,autor);
+                break;
 
-    int op;
-    // opcion 1 ==, 2 +, 3 <=, 4 >=, 5 >, 6 <
-    file >> op;
-    //cin >> op;
+            case 'D':
+                inputFile >> duracion;
+                arrMateriales[cantMaterial] = new Disco(idMaterial,titulo,duracion);
+                break;
 
-    file >> f1 >> f2 >> f3;
-    //cin >> f2 >> f2 >> f3;
+            case 'S':
+                inputFile >> sistemaOper;
+                arrMateriales[cantMaterial] = new Software(idMaterial, titulo, sistemaOper);
+                break;
 
-    switch (op) {
-
-        case 1: {
-            if (f1 == f2) {
-                cout << f1 << " si es igual a " << f2 << endl;
-            } else {
-                cout << f1 << " no es igual a " << f2 << endl;
-            }
-            if (f1 == f3) {
-                cout << f1 << " si es igual a " << f3 << endl;
-            } else {
-                cout << f1 << " no es igual a " << f3 << endl;
-            }
-            if (f2 == f3) {
-                cout << f2 << " si es igual a " << f3 << endl;
-            } else {
-                cout << f2 << " no es igual a " << f2 << endl;
-            }
-            break;
+            default:
+                cout << "ERROR" << endl;
         }
-        case 2: {
-            f4 = f1 + 1;
-            f5 = f2 + 5;
-            f6 = f3 + 10;
-            cout << f4 << endl;
-            cout << f5 << endl;
-            cout << f6 << endl;
-            break;
-        }
-        case 3: {
-            if (f1 <= f2) {
-                cout << f1 << " es <= a " << f2 << endl;
-            } else {
-                cout << f1 << " no es <= a " << f2 << endl;
-            }
-            if (f1 <= f3) {
-                cout << f1 << " es <= a " << f3 << endl;
-            } else {
-                cout << f1 << " no es <= a " << f3 << endl;
-            }
-            if (f2 <= f3) {
-                cout << f2 << " es <= a " << f3 << endl;
-            } else {
-                cout << f2 << " no es <= a " << f3 << endl;
-            }
-            break;
-        }
-        case 4: {
-            if (f1 >= f2) {
-                cout << f1 << " es >= a " << f2 << endl;
-            } else {
-                cout << f1 << " no es >= a " << f2 << endl;
-            }
-            if (f1 >= f3) {
-                cout << f1 << " es >= a " << f3 << endl;
-            } else {
-                cout << f1 << " no es >= a " << f3 << endl;
-            }
-            if (f2 >= f3) {
-                cout << f2 << " es >= a " << f3 << endl;
-            } else {
-                cout << f2 << " no es >= a " << f3 << endl;
-            }
-            break;
-        }
-        case 5: {
-            if (f1 > f2) {
-                cout << f1 << " es > a " << f2 << endl;
-            } else {
-                cout << f1 << " no es > a " << f2 << endl;
-            }
-            if (f1 > f3) {
-                cout << f1 << " es > a " << f3 << endl;
-            } else {
-                cout << f1 << " no es > a " << f3 << endl;
-            }
-            if (f2 > f3) {
-                cout << f2 << " es > a " << f3 << endl;
-            } else {
-                cout << f2 << " no es > a " << f3 << endl;
-            }
-            break;
-        }
-        case 6: {
-            if (f1 < f2) {
-                cout << f1 << " es < a " << f2 << endl;
-            } else {
-                cout << f1 << " no es < a " << f2 << endl;
-            }
-            if (f1 < f3) {
-                cout << f1 << " es < a " << f3 << endl;
-            } else {
-                cout << f1 << " no es < a " << f3 << endl;
-            }
-            if (f2 < f3) {
-                cout << f2 << " es < a " << f3 << endl;
-            } else {
-                cout << f2 << " no es < a " << f3 << endl;
-            }
-            break;
 
-        }
+        cantMaterial++;
     }
+
+    return cantMaterial;
+}
+
+int cargarReservas(Reserva arrReservas[])
+{
+    ifstream inputFile;
+    inputFile.open("Reserva.txt");
+
+    int cantReservas = 0;
+
+
+
+}
+
+int main()
+{
+    Material *arrMateriales[20];
+    Reserva arrReservas[50];
+
+    int cantMaterial = cargarMateriales(arrMateriales);
+    int cantReservas = cargarReservas(arrReservas);
 
     return 0;
 }

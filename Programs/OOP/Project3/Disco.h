@@ -7,15 +7,39 @@
 
 #include "Material.h"
 
-class Disco : public Material
+class Disco :public Material
 {
 public:
-    Disco();
-    Disco(int);
+    Disco() : Material() {duracion = 0;}
+    Disco(int id, string tit, int dur);
+
+    void muestra() override;
+    int cantidadDiasPrestamo() override;
+
+    void setDuracion(int duracion) {this->duracion = duracion;}
+
+    int getDuracion() {return duracion;}
 
 private:
     int duracion;
 };
+
+Disco::Disco(int id, string tit, int dur) : Material(id,tit)
+{
+    duracion = dur;
+}
+
+void Disco::muestra()
+{
+    cout << "ID de libro: " << idMaterial << endl;
+    cout << "Titulo de libro: " << titulo << endl;
+    cout << "Duracion: " << duracion << " min."<<endl;
+}
+
+int Disco::cantidadDiasPrestamo()
+{
+    return 3;
+}
 
 
 #endif //PROJECT3_DISCO_H
