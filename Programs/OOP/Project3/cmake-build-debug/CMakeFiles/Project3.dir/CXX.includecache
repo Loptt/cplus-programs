@@ -6,9 +6,29 @@
 
 #IncludeRegexTransform: 
 
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Disco.h
+Material.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.h
+
 /home/charles/Github/cplus-programs/Programs/OOP/Project3/Fecha.h
 iostream
 -
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Libro.h
+Material.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.h
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.h
+iostream
+-
+string
+-
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Reserva.h
+
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Software.h
+Material.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.h
 
 /home/charles/Github/cplus-programs/Programs/OOP/Project3/main.cpp
 iostream
@@ -17,4 +37,14 @@ fstream
 -
 Fecha.h
 /home/charles/Github/cplus-programs/Programs/OOP/Project3/Fecha.h
+Material.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.h
+Reserva.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Reserva.h
+Libro.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Libro.h
+Disco.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Disco.h
+Software.h
+/home/charles/Github/cplus-programs/Programs/OOP/Project3/Software.h
 

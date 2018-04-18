@@ -111,5 +111,11 @@
 		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/test.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/Material.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/charles/Github/cplus-programs/Programs/OOP/Project3/Reserva.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
 	</Project>
 </CodeBlocks_project_file>

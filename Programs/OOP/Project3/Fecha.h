@@ -118,6 +118,7 @@ int Fecha::calculaMaxDias(int mes, int anio)
         case 8:
         case 10:
         case 12:
+
             return 31;
 
         case 4:
@@ -144,7 +145,7 @@ int Fecha::calculaMaxDias(int mes, int anio)
 
 bool operator==(Fecha f1, Fecha f2)
 {
-    return f1.aa == f2.aa && f1.mm == f2.mm && f1.dd == f2.dd;
+    return (f1.aa == f2.aa && f1.mm == f2.mm && f1.dd == f2.dd);
 }
 
 bool operator>(Fecha f1, Fecha f2)
@@ -179,7 +180,7 @@ bool operator>(Fecha f1, Fecha f2)
 
 bool operator>=(Fecha f1, Fecha f2)
 {
-    return f1 > f2 || f1 == f2;
+    return (f1 > f2 || f1 == f2);
 }
 
 bool operator<(Fecha f1, Fecha f2)
@@ -189,7 +190,7 @@ bool operator<(Fecha f1, Fecha f2)
 
 bool operator<=(Fecha f1, Fecha f2)
 {
-    return f1 < f2 || f1 == f2;
+    return (f1 < f2 || f1 == f2);
 }
 
 Fecha operator+(Fecha f1, int diasAgregar)

@@ -31,8 +31,8 @@ Software::Software(int id, string tit, string sis) : Material(id,tit)
 
 void Software::muestra()
 {
-    cout << "ID de libro: " << idMaterial << endl;
-    cout << "Titulo de libro: " << titulo << endl;
+    cout << "ID del software: " << idMaterial << endl;
+    cout << "Titulo del software: " << titulo << endl;
     cout << "Sistema operativo: " << sistemaOper << endl;
 }
 

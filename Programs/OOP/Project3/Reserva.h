@@ -5,9 +5,6 @@
 #ifndef PROJECT3_RESERVA_H
 #define PROJECT3_RESERVA_H
 
-
-#include "Fecha.h"
-
 class Reserva
 {
 public:

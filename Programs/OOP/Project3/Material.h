@@ -13,7 +13,7 @@ class Material
 {
 public:
     Material() {idMaterial = 0; titulo = "-";}
-    Material(int id, string tit) {idMaterial = id; tit = titulo;}
+    Material(int id, string tit) {idMaterial = id; titulo = tit;}
 
     void setTitulo(string titulo) {this->titulo = titulo;}
     void setIdMaterial(int idMaterial) {this->idMaterial = idMaterial; }
