@@ -60,6 +60,8 @@ int cargarReservas(Reserva arrReservas[])
     int idCliente, idMaterial;
     Fecha fechaReservacion;
 
+    cout << "A cargar reservas " << endl;
+
     while(inputFile >> fechaReservacion >> idMaterial >> idCliente)
     {
         arrReservas[cantReservas].setIdMaterial(idMaterial);
@@ -67,6 +69,7 @@ int cargarReservas(Reserva arrReservas[])
         arrReservas[cantReservas].setFechaReservacion(fechaReservacion);
 
         cantReservas++;
+        cout << "Cargando reserva no " << cantReservas-1 << endl;
     }
 
     inputFile.close();
@@ -90,6 +93,11 @@ char mostrarMenu()
     cin >> respuesta;
 
     return respuesta;
+}
+
+bool validarRangoFechas(Fecha fechaInicial, Fecha fechaFinal, Fecha fechaMeta)
+{
+    return !(fechaInicial <= fechaMeta && fechaFinal >= fechaMeta);
 }
 
 void mostrarListaMateriales(Material *arrMateriales[], int cant)
@@ -121,21 +129,21 @@ void mostrarListaReservas(Reserva arrReservas[], int cant)
 
 void mostrarReservacionesMaterial(Material *arrMateriales[], Reserva arrReservas[], int cantM, int cantR)
 {
-    string nombre;
     int idMaterial = 0;
     int cantidadDias = 0;
     bool bEncontrado =  false;
+    string nombre;
 
-    cout << "Introduzca el nombre del material: " << endl;
+    cout << "Introduzca el ID del material: " << endl;
 
     do
     {
-        cin >> nombre;
+        cin >> idMaterial;
         for (int iCounter = 0; iCounter < cantM; ++iCounter)
         {
-            if (arrMateriales[iCounter]->getTitulo() == nombre)
+            if (arrMateriales[iCounter]->getIdMaterial() == idMaterial)
             {
-                idMaterial = arrMateriales[iCounter]->getIdMaterial();
+                nombre = arrMateriales[iCounter]->getTitulo();
                 cantidadDias = arrMateriales[iCounter]->cantidadDiasPrestamo();
                 bEncontrado = true;
             }
@@ -144,14 +152,14 @@ void mostrarReservacionesMaterial(Material *arrMateriales[], Reserva arrReservas
 
         if (!bEncontrado)
         {
-            cout << "El titulo del material no existe, intenta con otro..." << endl;
+            cout << "El ID del material no existe, intenta con otro..." << endl;
         }
     }
     while(!bEncontrado);
 
     for (int iCounter = 0; iCounter < cantR; ++iCounter)
     {
-        if (idMaterial == arrReservas->getIdMaterial())
+        if (idMaterial == arrReservas[iCounter].getIdMaterial())
         {
             cout << "Nombre: " << nombre << endl;
             cout << "Fecha de inicio de reservacion: " << arrReservas[iCounter].getFechaReservacion() << endl;
@@ -170,7 +178,7 @@ void mostrarReservacionesFecha(Material *arrMateriales[], Reserva arrReservas[],
     int posicionMaterial = 0;
     bool encontrado = false;
 
-    cout << "Introduce una fecha: " << endl;
+    cout << "Introduzca una fecha: " << endl;
     cin >> fecha;
 
     cout << "Reservaciones para " << fecha << endl << endl;
@@ -206,13 +214,95 @@ void mostrarReservacionesFecha(Material *arrMateriales[], Reserva arrReservas[],
 
     if (!encontrado)
     {
-        cout << "No se encontraron reservaciones en esa fecha" << endl;
+        cout << "No se encontraron reservaciones en esa fecha" << endl << endl;
     }
 }
 
-void hacerReservacion(Material *arrMateriales[], Reserva arrReservas[], int cantM, int cantR)
+int hacerReservacion(Material *arrMateriales[], Reserva arrReservas[], int cantM, int cantR)
 {
-    cout << "Introduce la canti";
+    int idCliente;
+    int idMaterial;
+    int cantidadDias = 0;
+
+    Fecha fecha;
+
+    bool validMaterial = false;
+    bool validFecha1 = true;
+    bool validFecha2 = true;
+
+    cout << "Introduzca su ID de cliente:" << endl;
+    cin >> idCliente;
+
+    cout << "Introduzca el ID del material:" << endl;
+
+    do
+    {
+        cin >> idMaterial;
+
+        for (int iCounter = 0; iCounter < cantM; ++iCounter)
+        {
+            if (arrMateriales[iCounter]->getIdMaterial() == idMaterial)
+            {
+                validMaterial = true;
+                cantidadDias = arrMateriales[iCounter]->cantidadDiasPrestamo();
+            }
+        }
+
+        if (!validMaterial)
+        {
+            cout << "Ese ID no existe, por favor intenta con otro:" << endl;
+        }
+
+    }
+    while (!validMaterial);
+
+    cout << "Introduzca la fecha de reservacion:" << endl;
+    cin >> fecha;
+
+    Fecha fechaReserva;
+
+    for (int iCounter = 0; iCounter < cantR; ++iCounter)
+    {
+        if (arrReservas[iCounter].getIdMaterial() == idMaterial)
+        {
+            fechaReserva = arrReservas[iCounter].getFechaReservacion();
+            validFecha1 = validarRangoFechas(fechaReserva, fechaReserva + cantidadDias, fecha);
+            validFecha2 = validarRangoFechas(fecha, fecha + cantidadDias, fechaReserva);
+        }
+    }
+
+    if (validFecha1 && validFecha2)
+    {
+        arrReservas[cantR].setIdCliente(idCliente);
+        arrReservas[cantR].setIdMaterial(idMaterial);
+        arrReservas[cantR].setFechaReservacion(fecha);
+        cantR++;
+
+        cout << "Reserva realizada exitosamente." << endl << endl;
+    }
+    else
+    {
+        cout << "No se pudo realizar la reservacion debido a que el material esta en uso durante esa fecha." << endl;
+    }
+
+    return cantR;
+}
+
+void guardarReservaciones(Reserva arrReservas[], int cantR)
+{
+    ofstream outputFile;
+    outputFile.open("Reserva.txt");
+
+    for (int iCounter = 0; iCounter < cantR; ++iCounter)
+    {
+        outputFile << arrReservas[iCounter].getFechaReservacion().getDia() << " ";
+        outputFile << arrReservas[iCounter].getFechaReservacion().getMes() << " ";
+        outputFile << arrReservas[iCounter].getFechaReservacion() << " ";
+        outputFile << arrReservas[iCounter].getIdMaterial() << " ";
+        outputFile << arrReservas[iCounter].getIdCliente() << " ";
+    }
+
+    outputFile.close();
 }
 
 int main()
@@ -248,7 +338,7 @@ int main()
                 break;
 
             case 'e':
-                hacerReservacion(arrMateriales, arrReservas, cantMaterial, cantReservas);
+                cantReservas = hacerReservacion(arrMateriales, arrReservas, cantMaterial, cantReservas);
                 break;
 
             default:
@@ -256,6 +346,8 @@ int main()
         }
     }
     while (respuesta != 'f');
+
+    guardarReservaciones(arrReservas, cantReservas);
 
     return 0;
 }
