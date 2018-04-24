@@ -157,15 +157,24 @@ void mostrarReservacionesMaterial(Material *arrMateriales[], Reserva arrReservas
     }
     while(!bEncontrado);
 
+    bEncontrado = false;
+
     for (int iCounter = 0; iCounter < cantR; ++iCounter)
     {
         if (idMaterial == arrReservas[iCounter].getIdMaterial())
         {
+        	bEncontrado = true;
             cout << "Nombre: " << nombre << endl;
             cout << "Fecha de inicio de reservacion: " << arrReservas[iCounter].getFechaReservacion() << endl;
             cout << "Fecha de fin de reservacion: " << arrReservas[iCounter].getFechaReservacion() +
-                    cantidadDias << endl;
+                    cantidadDias << endl << endl;
         }
+    }
+
+
+    if (!bEncontrado)
+    {
+    	cout << "No se encontraron reservaciones para ese material." << endl;
     }
 
 }

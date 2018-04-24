@@ -200,27 +200,9 @@ Fecha operator+(Fecha f1, int diasAgregar)
     int mesActual = f1.mm;
     int anioActual = f1.aa;
 
-    int diasSobrantes = diasAgregar - maxDias + diaActual;
+    int diasSobrantes = 0;
 
-    while(diasSobrantes > 0)
-    {
-
-        if (++mesActual > 12)
-        {
-            ++anioActual;
-            mesActual = 1;
-        }
-
-        diasAgregar -= maxDias;
-
-        maxDias = f1.calculaMaxDias(mesActual, anioActual);
-        diasSobrantes = diasAgregar - maxDias;
-
-    }
-
-    diaActual += maxDias + diasSobrantes;
-
-    if (diaActual > maxDias)
+    if (diasAgregar + diaActual > maxDias)
     {
         if(++mesActual > 12)
         {
@@ -228,10 +210,14 @@ Fecha operator+(Fecha f1, int diasAgregar)
             mesActual = 1;
         }
 
-        diaActual -= maxDias;
+        diasSobrantes = diasAgregar + diaActual - maxDias;
+    }
+    else
+    {
+        diasSobrantes = diasAgregar + diaActual;
     }
 
-    Fecha resultado(diaActual, mesActual, anioActual);
+    Fecha resultado(diasSobrantes, mesActual, anioActual);
 
     return resultado;
 
@@ -249,6 +235,6 @@ istream &operator>>(istream &is, Fecha &f1)
 
 ostream &operator<<(ostream &os, Fecha f1)
 {
-    os << f1.dd << "/" << f1.mm << "/" << f1.aa;
+    os << f1.dd << "/" << f1.nombreMes() << "/" << f1.aa;
     return os;
 }
