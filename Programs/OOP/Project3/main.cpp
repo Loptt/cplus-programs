@@ -299,7 +299,7 @@ void guardarReservaciones(Reserva arrReservas[], int cantR)
         outputFile << arrReservas[iCounter].getFechaReservacion().getMes() << " ";
         outputFile << arrReservas[iCounter].getFechaReservacion().getAnio() << " ";
         outputFile << arrReservas[iCounter].getIdMaterial() << " ";
-        outputFile << arrReservas[iCounter].getIdCliente() << " ";
+        outputFile << arrReservas[iCounter].getIdCliente() << endl;
     }
 
     outputFile.close();
