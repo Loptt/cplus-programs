@@ -60,7 +60,7 @@ int cargarReservas(Reserva arrReservas[])
     int idCliente, idMaterial;
     Fecha fechaReservacion;
 
-    cout << "A cargar reservas " << endl;
+    //  cout << "A cargar reservas " << endl;
 
     while(inputFile >> fechaReservacion >> idMaterial >> idCliente)
     {
@@ -69,7 +69,7 @@ int cargarReservas(Reserva arrReservas[])
         arrReservas[cantReservas].setFechaReservacion(fechaReservacion);
 
         cantReservas++;
-        cout << "Cargando reserva no " << cantReservas-1 << endl;
+        //cout << "Cargando reserva no " << cantReservas-1 << endl;
     }
 
     inputFile.close();
@@ -106,19 +106,37 @@ void mostrarListaMateriales(Material *arrMateriales[], int cant)
 
     for (int iCounter = 0; iCounter < cant; ++iCounter)
     {
+        cout << "Material No " << iCounter+1 << endl;
         arrMateriales[iCounter]->muestra();
         cout << endl;
     }
 }
 
-void mostrarListaReservas(Reserva arrReservas[], int cant)
+void mostrarListaReservas(Reserva arrReservas[], Material *arrMateriales[], int cantR,
+                            int cantM)
 {
-    for (int iCounter = 0; iCounter < cant; ++iCounter)
+    int cantDias = 0;
+    string titulo;
+    for (int iCounter = 0; iCounter < cantR; ++iCounter)
     {
+        for (int iCounter2 = 0; iCounter2 < cantM; ++iCounter2)
+        {
+            if (arrReservas[iCounter].getIdMaterial() == arrMateriales[iCounter2]->getIdMaterial())
+            {
+                cantDias = arrMateriales[iCounter2]->cantidadDiasPrestamo();
+                titulo = arrMateriales[iCounter2]->getTitulo();
+                break;
+            }
+        }
+
         cout << "Reserva No: " << iCounter+1 << endl;
         cout << "ID del Material: " << arrReservas[iCounter].getIdMaterial() << endl;
+        cout << "Titulo: " << titulo << endl;
         cout << "ID del Cliente: " << arrReservas[iCounter].getIdCliente() << endl;
-        cout << "Fecha de reservación: " << arrReservas[iCounter].getFechaReservacion() << endl;
+        cout << "Fecha de inicio de reservación: " << arrReservas[iCounter].getFechaReservacion() << endl;
+        cout << "Fecha de fin de reservación: " << arrReservas[iCounter].getFechaReservacion() + cantDias << endl;
+        cout << endl;
+
         cout << endl;
 
     }
@@ -165,6 +183,7 @@ void mostrarReservacionesMaterial(Material *arrMateriales[], Reserva arrReservas
         {
         	bEncontrado = true;
             cout << "Nombre: " << nombre << endl;
+            cout << "ID de cliente: " << arrReservas[iCounter].getIdCliente() << endl;
             cout << "Fecha de inicio de reservacion: " << arrReservas[iCounter].getFechaReservacion() << endl;
             cout << "Fecha de fin de reservacion: " << arrReservas[iCounter].getFechaReservacion() +
                     cantidadDias << endl << endl;
@@ -335,7 +354,7 @@ int main()
                 break;
 
             case 'b':
-                mostrarListaReservas(arrReservas, cantReservas);
+                mostrarListaReservas(arrReservas, arrMateriales, cantReservas, cantMaterial);
                 break;
 
             case 'c':
