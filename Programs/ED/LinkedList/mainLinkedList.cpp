@@ -28,5 +28,9 @@ int main()
 
     list.print();
 
+    list.shift(1);
+
+    list.print();
+
     return 0;
 }

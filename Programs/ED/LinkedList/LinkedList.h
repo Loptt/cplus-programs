@@ -289,10 +289,29 @@ void LinkedList<T>::reverse()
 template <class T>
 void LinkedList<T>::shift(int amount)
 {
-    Node<T> *current = head;
+    Node<T> *current1 = head;
+    Node<T> *current2 = head;
+
+    amount = amount % size;
+
+    if (amount < 0)
+    {
+        amount = size + amount;
+    }
 
     for (int i = 0; i < amount-1; ++i)
     {
-        current = current->getNext();
+        current1 = current1->getNext();
     }
+
+    current2 = current1->getNext();
+    
+    while (current2->getNext() != NULL)
+    {
+        current2 = current2->getNext();
+    }
+
+    current2->setNext(head);
+    head = current1->getNext();
+    current1->setNext(NULL);
 }
