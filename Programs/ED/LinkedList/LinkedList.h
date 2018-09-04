@@ -26,6 +26,12 @@ class LinkedList
 
     void print();
 
+    void reverse();
+    void shift(int amount);
+    void spin(int interval);
+
+    bool operator=(LinkedList<T> list);
+
   private:
     Node<T> *head;
     int size;
@@ -258,4 +264,35 @@ void LinkedList<T>::print()
     }
 
     std::cout << std::endl;
+}
+
+template <class T>
+void LinkedList<T>::reverse()
+{
+    if (size < 2)
+        return;
+
+    Node<T> *current1 = head;
+    Node<T> *current2 = current1->getNext();
+
+    current1->setNext(NULL);
+
+    while (current2 != NULL)
+    {
+        head = current2;
+        current2 = current2->getNext();
+        head->setNext(current1);
+        current1 = head;
+    }
+}
+
+template <class T>
+void LinkedList<T>::shift(int amount)
+{
+    Node<T> *current = head;
+
+    for (int i = 0; i < amount-1; ++i)
+    {
+        current = current->getNext();
+    }
 }

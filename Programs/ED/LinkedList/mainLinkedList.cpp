@@ -24,7 +24,7 @@ int main()
 
     list.print();
 
-    list.change(0, 2);
+    list.reverse();
 
     list.print();
 
