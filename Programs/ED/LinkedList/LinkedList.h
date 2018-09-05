@@ -5,6 +5,7 @@ class LinkedList
 {
   public:
     LinkedList();
+    LinkedList(const LinkedList<T> &list);
     ~LinkedList();
 
     bool isEmpty();
@@ -30,7 +31,10 @@ class LinkedList
     void shift(int amount);
     void spin(int interval);
 
-    bool operator=(LinkedList<T> list);
+    bool operator==(LinkedList<T> list);
+    void operator+=(T data);
+    void operator+=(LinkedList<T> list);
+    void operator=(const LinkedList<T> &list);
 
   private:
     Node<T> *head;
@@ -44,6 +48,27 @@ LinkedList<T>::LinkedList()
 {
     head = NULL;
     size = 0;
+}
+
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T> &list)
+{
+    this->size = list.size;
+
+    Node<T> *currentOld = list.head;
+
+    this->head = new Node<T>(currentOld->getData());
+
+    Node<T> *currentNew = this->head;
+    currentOld = currentOld->getNext();
+    currentNew = currentNew->getNext();
+
+    while (currentOld->getNext() != NULL)
+    {
+        currentNew->setNext(new Node<T>(currentOld->getData()));
+        currentOld = currentOld->getNext();
+        currentNew = currentNew->getNext();
+    }
 }
 
 template <class T>
@@ -299,13 +324,13 @@ void LinkedList<T>::shift(int amount)
         amount = size + amount;
     }
 
-    for (int i = 0; i < amount-1; ++i)
+    for (int i = 0; i < amount - 1; ++i)
     {
         current1 = current1->getNext();
     }
 
     current2 = current1->getNext();
-    
+
     while (current2->getNext() != NULL)
     {
         current2 = current2->getNext();
@@ -314,4 +339,51 @@ void LinkedList<T>::shift(int amount)
     current2->setNext(head);
     head = current1->getNext();
     current1->setNext(NULL);
+}
+
+template <class T>
+bool LinkedList<T>::operator==(LinkedList<T> list2)
+{
+    if (size != size)
+        return false;
+
+    Node<T> *current1 = head;
+    Node<T> *current2 = list2.head;
+
+    for (int i = 0; i < size; ++i)
+    {
+        if (current1->getData() != current2->getData())
+        {
+            return false;
+        }
+
+        current1 = current1->getNext();
+        current2 = current2->getNext();
+    }
+
+    return true;
+}
+
+template <class T>
+void LinkedList<T>::operator+=(T data)
+{
+    addLast(data);
+}
+
+template <class T>
+void LinkedList<T>::operator+=(LinkedList<T> list2)
+{
+    Node<T> current = head;
+
+    while (current->getNext() != NULL)
+    {
+        current = current->getNext();
+    }
+
+    current->setNext(list2.head);
+}
+
+template <class T>
+void LinkedList<T>::operator=(const LinkedList<T> &list)
+{
 }

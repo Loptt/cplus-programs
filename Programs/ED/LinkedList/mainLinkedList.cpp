@@ -32,5 +32,12 @@ int main()
 
     list.print();
 
+    LinkedList<std::string> list2(list);
+
+    list2.print();
+    list2.print();
+    list2.print();
+    list2.print();
+
     return 0;
 }
