@@ -60,13 +60,11 @@ LinkedList<T>::LinkedList(const LinkedList<T> &list)
     this->head = new Node<T>(currentOld->getData());
 
     Node<T> *currentNew = this->head;
-    currentOld = currentOld->getNext();
-    currentNew = currentNew->getNext();
 
     while (currentOld->getNext() != NULL)
     {
-        currentNew->setNext(new Node<T>(currentOld->getData()));
         currentOld = currentOld->getNext();
+        currentNew->setNext(new Node<T>(currentOld->getData()));
         currentNew = currentNew->getNext();
     }
 }
@@ -373,7 +371,7 @@ void LinkedList<T>::operator+=(T data)
 template <class T>
 void LinkedList<T>::operator+=(LinkedList<T> list2)
 {
-    Node<T> current = head;
+    Node<T> *current = this->head;
 
     while (current->getNext() != NULL)
     {
@@ -381,9 +379,53 @@ void LinkedList<T>::operator+=(LinkedList<T> list2)
     }
 
     current->setNext(list2.head);
+    size += list2.size;
 }
 
 template <class T>
 void LinkedList<T>::operator=(const LinkedList<T> &list)
 {
+    Node<T> *currentOld = list.head;
+    Node<T> *currentNew = this->head;
+
+    if (list.size > this->size)
+    {
+        int toAdd = list.size - this->size;
+
+        while (currentNew->getNext() != NULL)
+        {
+            currentNew->setData(currentOld->getData());
+            currentOld = currentOld->getNext();
+            currentNew = currentNew->getNext();
+        }
+
+        for (int i = 0; i < toAdd; ++i)
+        {
+            currentOld = currentOld->getNext();
+            currentNew->setNext(new Node<T>(currentOld->getData()));
+            currentNew = currentNew->getNext();
+        }
+    }
+    else
+    {
+        int toDelete = this->size - list.size;
+
+        while (currentOld->getNext() != NULL)
+        {
+            currentNew->setData(currentOld->getData());
+            currentOld = currentOld->getNext();
+            currentNew = currentNew->getNext();
+        }
+
+        Node<T> *temp = currentNew->getNext();
+
+        for (int i = 0; i < toDelete; ++i)
+        {
+            delete currentNew;
+            currentNew = temp;
+            temp = temp->getNext();
+        }
+    }
+
+    size = list.size;
 }
