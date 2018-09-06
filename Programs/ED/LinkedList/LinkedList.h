@@ -380,6 +380,8 @@ void LinkedList<T>::operator+=(LinkedList<T> list2)
 
     current->setNext(list2.head);
     size += list2.size;
+
+    print();
 }
 
 template <class T>
