@@ -372,21 +372,28 @@ template <class T>
 void LinkedList<T>::operator+=(LinkedList<T> list2)
 {
     Node<T> *current = this->head;
+    Node<T> *current2 = list2.head;
 
     while (current->getNext() != NULL)
     {
         current = current->getNext();
     }
 
-    current->setNext(list2.head);
-    size += list2.size;
+    while (current2->getNext() != NULL)
+    {
+        current->setNext(new Node<T>(current2->getData()));
+        current = current->getNext();
+        current2 = current2->getNext();
+    }
 
-    print();
+    size += list2.size;
 }
 
 template <class T>
 void LinkedList<T>::operator=(const LinkedList<T> &list)
 {
+    std::cout << "asignando" << std::endl;
+
     Node<T> *currentOld = list.head;
     Node<T> *currentNew = this->head;
 

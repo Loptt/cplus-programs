@@ -11,12 +11,14 @@ int main()
     list.addFirst("Seseleco");
     list.addLast("HEHe");
 
+    std::cout << "Lista 1: ";
     list.print();
 
     LinkedList<std::string> list2(list);
 
     list2 += "XDDD";
 
+    std::cout << "Lista 2: ";
     list2.print();
 
     LinkedList<std::string> list3;
@@ -28,7 +30,13 @@ int main()
 
     list2 += "Final";
 
+    std::cout << "Lista 2: ";
     list2.print();
+
+    list3 = list2;
+
+    std::cout << "Lista 3: ";
+    list3.print();
 
     return 0;
 }
