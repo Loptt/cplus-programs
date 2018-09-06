@@ -408,7 +408,7 @@ void LinkedList<T>::operator=(const LinkedList<T> &list)
             currentNew = currentNew->getNext();
         }
 
-        for (int i = 0; i < toAdd; ++i)
+        for (int i = 0; i < toAdd - 1; ++i)
         {
             currentOld = currentOld->getNext();
             currentNew->setNext(new Node<T>(currentOld->getData()));
@@ -428,7 +428,7 @@ void LinkedList<T>::operator=(const LinkedList<T> &list)
 
         Node<T> *temp = currentNew->getNext();
 
-        for (int i = 0; i < toDelete; ++i)
+        for (int i = 0; i < toDelete - 1; ++i)
         {
             delete currentNew;
             currentNew = temp;
