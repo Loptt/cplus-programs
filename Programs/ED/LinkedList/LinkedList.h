@@ -363,11 +363,13 @@ void LinkedList<T>::spin(int interval)
 
     for (int i = 0; i < times-1; ++i)
     {
-        first2 = next;
+        
         if (next != NULL)
             next = next->getNext();
 
-        for (int j = 1; j < interval-1; ++j)
+        first2 = next;
+        
+        for (int j = 1; j < interval; ++j)
         {
             current = next;
             next = next->getNext();
