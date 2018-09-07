@@ -342,7 +342,6 @@ void LinkedList<T>::shift(int amount)
 template <class T>
 void LinkedList<T>::spin(int interval)
 {
-    std::cout << "Spineando" << std::endl;
     if (size <= 1)
         return;
 
@@ -361,13 +360,15 @@ void LinkedList<T>::spin(int interval)
     int remaining = size % interval;
     int times = size / interval;
 
-    for (int i = 1; i < interval - 1; ++i)
+    for (int i = 0; i < interval - 1; ++i)
     {
         head = next;
         next = next->getNext();
         head->setNext(previous);
         previous = head;
     }
+
+    first->setNext(next);
 
     for (int i = 0; i < times - 1; ++i)
     {
@@ -376,7 +377,7 @@ void LinkedList<T>::spin(int interval)
         current = next;
         next = next->getNext();
 
-        for (int j = 1; j < interval - 1; ++j)
+        for (int j = 0; j < interval - 1 && next->getNext() != NULL; ++j)
         {
             current = next;
             next = next->getNext();
@@ -392,9 +393,11 @@ void LinkedList<T>::spin(int interval)
     previous = next;
     first2 = next;
     current = next;
-    next = next->getNext();
 
-    for (int i = 0; i < remaining - 1; ++i)
+    if (next != NULL)
+        next = next->getNext();
+
+    for (int i = 1; i < remaining; ++i)
     {
         current = next;
         next = next->getNext();
@@ -446,7 +449,7 @@ void LinkedList<T>::operator+=(LinkedList<T> list2)
         current = current->getNext();
     }
 
-    while (current2->getNext() != NULL)
+    while (current2 != NULL)
     {
         current->setNext(new Node<T>(current2->getData()));
         current = current->getNext();
@@ -459,49 +462,22 @@ void LinkedList<T>::operator+=(LinkedList<T> list2)
 template <class T>
 void LinkedList<T>::operator=(const LinkedList<T> &list)
 {
-    std::cout << "asignando" << std::endl;
+    int cant = deleteAll();
+
+    head = new Node<T>(list.head->getData());
 
     Node<T> *currentOld = list.head;
     Node<T> *currentNew = this->head;
 
-    if (list.size > this->size)
+    if (currentOld == NULL)
+        return;
+
+    while (currentOld->getNext() != NULL)
     {
-        int toAdd = list.size - this->size;
-
-        while (currentNew->getNext() != NULL)
-        {
-            currentNew->setData(currentOld->getData());
-            currentOld = currentOld->getNext();
-            currentNew = currentNew->getNext();
-        }
-
-        for (int i = 0; i < toAdd - 1; ++i)
-        {
-            currentOld = currentOld->getNext();
-            currentNew->setNext(new Node<T>(currentOld->getData()));
-            currentNew = currentNew->getNext();
-        }
-    }
-    else
-    {
-        int toDelete = this->size - list.size;
-
-        while (currentOld->getNext() != NULL)
-        {
-            currentNew->setData(currentOld->getData());
-            currentOld = currentOld->getNext();
-            currentNew = currentNew->getNext();
-        }
-
-        Node<T> *temp = currentNew->getNext();
-
-        for (int i = 0; i < toDelete - 1; ++i)
-        {
-            delete currentNew;
-            currentNew = temp;
-            temp = temp->getNext();
-        }
+        currentOld = currentOld->getNext();
+        currentNew->setNext(new Node<T>(currentOld->getData()));
+        currentNew = currentNew->getNext();
     }
 
-    size = list.size;
+    this->size = list.size;
 }

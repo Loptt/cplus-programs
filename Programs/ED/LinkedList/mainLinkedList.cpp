@@ -32,11 +32,16 @@ int main()
 
     std::cout << "Lista 2: ";
 
+    list2.print(); 
+
     list2.spin(3);
 
+    std::cout << "Lista 2: ";
     list2.print();
 
     list3 = list2;
+
+    list2.print();
 
     std::cout << "Lista 3: ";
     list3.print();
