@@ -340,6 +340,35 @@ void LinkedList<T>::shift(int amount)
 }
 
 template <class T>
+void LinkedList<T>::spin(int interval)
+{
+    if (size <= 1)
+        return;
+
+    if (interval >= size)
+    {
+        reverse();
+        return;
+    }
+
+    Node<T> *current = head;
+    Node<T> *first = head;
+    Node<T> *previous = head;
+    Node<T> *next = head->getNext();
+
+    int remaining = size % interval;
+    int times = size / interval;
+
+    for (int i = 0; i < times; ++i)
+    {
+        for (int i = 0; i < interval; ++i)
+        {
+            current
+        }
+    }
+}
+
+template <class T>
 bool LinkedList<T>::operator==(LinkedList<T> list2)
 {
     if (size != size)

@@ -31,6 +31,7 @@ int main()
     list2 += "Final";
 
     std::cout << "Lista 2: ";
+
     list2.print();
 
     list3 = list2;
