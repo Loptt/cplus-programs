@@ -342,6 +342,7 @@ void LinkedList<T>::shift(int amount)
 template <class T>
 void LinkedList<T>::spin(int interval)
 {
+    std::cout << "Spineando" << std::endl;
     if (size <= 1)
         return;
 
@@ -360,13 +361,13 @@ void LinkedList<T>::spin(int interval)
     int remaining = size % interval;
     int times = size / interval;
 
-    for (int i = 0; i < times; ++i)
+    for (int i = 0; i < times-1; ++i)
     {
         first2 = next;
         if (next != NULL)
             next = next->getNext();
 
-        for (int j = 1; j < interval; ++j)
+        for (int j = 1; j < interval-1; ++j)
         {
             current = next;
             next = next->getNext();
