@@ -354,6 +354,7 @@ void LinkedList<T>::spin(int interval)
     Node<T> *current = head;
     Node<T> *first = head;
     Node<T> *previous = head;
+    Node<T> *first2 = head;
     Node<T> *next = head->getNext();
 
     int remaining = size % interval;
@@ -361,10 +362,28 @@ void LinkedList<T>::spin(int interval)
 
     for (int i = 0; i < times; ++i)
     {
-        for (int i = 0; i < interval; ++i)
+        first2 = next;
+        if (next != NULL)
+            next = next->getNext();
+
+        for (int j = 1; j < interval; ++j)
         {
-            current
+            current = next;
+            next = next->getNext();
+            current->setNext(previous);
+            previous = current;
         }
+
+        if (i == 0)
+            head = next;
+
+        first->setNext(first2);
+        first = first2;
+    }
+
+    for (int i = 0; i < remaining; ++i)
+    {
+
     }
 }
 

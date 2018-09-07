@@ -32,6 +32,8 @@ int main()
 
     std::cout << "Lista 2: ";
 
+    list2.spin(3);
+
     list2.print();
 
     list3 = list2;
