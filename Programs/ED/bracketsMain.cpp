@@ -68,6 +68,8 @@ bool validateBracket(char lastBracket, char closingBracket)
             return true;
         return false;
     }
+
+    return false;
 }
 
 int main(int argc, char const *argv[])
@@ -88,6 +90,11 @@ int main(int argc, char const *argv[])
         {
             if (checkForClosingBracket(input[i]))
             {
+                if (brackets.empty())
+                {
+                    cout << i + 1 << endl;
+                    return 0;
+                }
                 if (!validateBracket(brackets.top().cBra, input[i]))
                 {
                     cout << i + 1 << endl;
