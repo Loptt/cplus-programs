@@ -56,11 +56,6 @@ void NodeT::setLeft(NodeT *left)
     this->left = left;
 }
 
-void NodeT::setLeft(NodeT *left)
-{
-    this->left = left;
-}
-
 void NodeT::setRight(NodeT *right)
 {
     this->right = right;
