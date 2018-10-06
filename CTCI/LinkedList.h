@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "LinkedListNode.h"
 
 template <class T>
 class LinkedList
@@ -36,8 +36,10 @@ class LinkedList
     void operator+=(LinkedList<T> list);
     void operator=(const LinkedList<T> &list);
 
+    LinkedListNode<T> *getHead() { return head; }
+
   private:
-    Node<T> *head;
+    LinkedListNode<T> *head;
     int size;
 
     void deleteAllHelper();
@@ -55,16 +57,16 @@ LinkedList<T>::LinkedList(const LinkedList<T> &list)
 {
     this->size = list.size;
 
-    Node<T> *currentOld = list.head;
+    LinkedListNode<T> *currentOld = list.head;
 
-    this->head = new Node<T>(currentOld->getData());
+    this->head = new LinkedListNode<T>(currentOld->getData());
 
-    Node<T> *currentNew = this->head;
+    LinkedListNode<T> *currentNew = this->head;
 
     while (currentOld->getNext() != NULL)
     {
         currentOld = currentOld->getNext();
-        currentNew->setNext(new Node<T>(currentOld->getData()));
+        currentNew->setNext(new LinkedListNode<T>(currentOld->getData()));
         currentNew = currentNew->getNext();
     }
 }
@@ -84,7 +86,7 @@ bool LinkedList<T>::isEmpty()
 template <class T>
 void LinkedList<T>::addFirst(T data)
 {
-    head = new Node<T>(data, head);
+    head = new LinkedListNode<T>(data, head);
     size++;
 }
 
@@ -97,12 +99,12 @@ void LinkedList<T>::addLast(T data)
         return;
     }
 
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
 
     while (current->getNext() != NULL)
         current = current->getNext();
 
-    current->setNext(new Node<T>(data));
+    current->setNext(new LinkedListNode<T>(data));
     size++;
 }
 
@@ -112,7 +114,7 @@ void LinkedList<T>::deleteFirst()
     if (head == NULL)
         return;
 
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
     head = head->getNext();
     delete current;
     size--;
@@ -127,7 +129,7 @@ void LinkedList<T>::deleteLast()
         return;
     }
 
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
 
     while (current->getNext()->getNext() != NULL)
     {
@@ -153,14 +155,14 @@ bool LinkedList<T>::add(T data, int position)
 
     else
     {
-        Node<T> *current = head;
+        LinkedListNode<T> *current = head;
 
         for (int i = 1; i < position; ++i)
         {
             current = current->getNext();
         }
 
-        current->setNext(new Node<T>(data, current->getNext()));
+        current->setNext(new LinkedListNode<T>(data, current->getNext()));
         size++;
     }
 
@@ -180,7 +182,7 @@ int LinkedList<T>::deleteAll()
 template <class T>
 void LinkedList<T>::deleteAllHelper()
 {
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
 
     while (head != NULL)
     {
@@ -201,14 +203,14 @@ void LinkedList<T>::del(int position)
 
     else
     {
-        Node<T> *current = head;
+        LinkedListNode<T> *current = head;
 
         for (int i = 1; i < position; ++i)
         {
             current = current->getNext();
         }
 
-        Node<T> *temp = current->getNext();
+        LinkedListNode<T> *temp = current->getNext();
         current->setNext(current->getNext()->getNext());
         delete temp;
     }
@@ -217,7 +219,7 @@ void LinkedList<T>::del(int position)
 template <class T>
 T LinkedList<T>::get(int position)
 {
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
 
     for (int i = 0; i < position; ++i)
     {
@@ -230,7 +232,7 @@ T LinkedList<T>::get(int position)
 template <class T>
 T LinkedList<T>::set(T data, int position)
 {
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
 
     for (int i = 0; i < position; ++i)
     {
@@ -248,8 +250,8 @@ bool LinkedList<T>::change(int pos1, int pos2)
     if (pos1 == pos2)
         return true;
 
-    Node<T> *current = head;
-    Node<T> *firstPosition = NULL;
+    LinkedListNode<T> *current = head;
+    LinkedListNode<T> *firstPosition = NULL;
 
     int greaterPos = pos1 > pos2 ? pos1 : pos2;
     int lesserPos = pos1 < pos2 ? pos1 : pos2;
@@ -279,7 +281,7 @@ bool LinkedList<T>::change(int pos1, int pos2)
 template <class T>
 void LinkedList<T>::print()
 {
-    Node<T> *current = head;
+    LinkedListNode<T> *current = head;
     while (current != NULL)
     {
         std::cout << current->getData() << " ";
@@ -295,8 +297,8 @@ void LinkedList<T>::reverse()
     if (size < 2)
         return;
 
-    Node<T> *current1 = head;
-    Node<T> *current2 = current1->getNext();
+    LinkedListNode<T> *current1 = head;
+    LinkedListNode<T> *current2 = current1->getNext();
 
     current1->setNext(NULL);
 
@@ -312,8 +314,8 @@ void LinkedList<T>::reverse()
 template <class T>
 void LinkedList<T>::shift(int amount)
 {
-    Node<T> *current1 = head;
-    Node<T> *current2 = head;
+    LinkedListNode<T> *current1 = head;
+    LinkedListNode<T> *current2 = head;
 
     amount = amount % size;
 
@@ -351,11 +353,11 @@ void LinkedList<T>::spin(int interval)
         return;
     }
 
-    Node<T> *current = head;
-    Node<T> *first = head;
-    Node<T> *previous = head;
-    Node<T> *first2 = head;
-    Node<T> *next = head->getNext();
+    LinkedListNode<T> *current = head;
+    LinkedListNode<T> *first = head;
+    LinkedListNode<T> *previous = head;
+    LinkedListNode<T> *first2 = head;
+    LinkedListNode<T> *next = head->getNext();
 
     int remaining = size % interval;
     int times = size / interval;
@@ -415,8 +417,8 @@ bool LinkedList<T>::operator==(LinkedList<T> list2)
     if (size != size)
         return false;
 
-    Node<T> *current1 = head;
-    Node<T> *current2 = list2.head;
+    LinkedListNode<T> *current1 = head;
+    LinkedListNode<T> *current2 = list2.head;
 
     for (int i = 0; i < size; ++i)
     {
@@ -441,8 +443,8 @@ void LinkedList<T>::operator+=(T data)
 template <class T>
 void LinkedList<T>::operator+=(LinkedList<T> list2)
 {
-    Node<T> *current = this->head;
-    Node<T> *current2 = list2.head;
+    LinkedListNode<T> *current = this->head;
+    LinkedListNode<T> *current2 = list2.head;
 
     while (current->getNext() != NULL)
     {
@@ -451,7 +453,7 @@ void LinkedList<T>::operator+=(LinkedList<T> list2)
 
     while (current2 != NULL)
     {
-        current->setNext(new Node<T>(current2->getData()));
+        current->setNext(new LinkedListNode<T>(current2->getData()));
         current = current->getNext();
         current2 = current2->getNext();
     }
@@ -464,10 +466,10 @@ void LinkedList<T>::operator=(const LinkedList<T> &list)
 {
     int cant = deleteAll();
 
-    head = new Node<T>(list.head->getData());
+    head = new LinkedListNode<T>(list.head->getData());
 
-    Node<T> *currentOld = list.head;
-    Node<T> *currentNew = this->head;
+    LinkedListNode<T> *currentOld = list.head;
+    LinkedListNode<T> *currentNew = this->head;
 
     if (currentOld == NULL)
         return;
@@ -475,7 +477,7 @@ void LinkedList<T>::operator=(const LinkedList<T> &list)
     while (currentOld->getNext() != NULL)
     {
         currentOld = currentOld->getNext();
-        currentNew->setNext(new Node<T>(currentOld->getData()));
+        currentNew->setNext(new LinkedListNode<T>(currentOld->getData()));
         currentNew = currentNew->getNext();
     }
 

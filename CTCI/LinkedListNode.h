@@ -3,6 +3,7 @@ class LinkedListNode
 {
   public:
     LinkedListNode();
+    LinkedListNode(T data);
     LinkedListNode(T data, LinkedListNode *next);
 
     LinkedListNode<T> *getNext() { return next; }
@@ -20,6 +21,12 @@ template <class T>
 LinkedListNode<T>::LinkedListNode()
 {
     next = nullptr;
+}
+
+template <class T>
+LinkedListNode<T>::LinkedListNode(T data)
+{
+    this->data = data;
 }
 
 template <class T>
