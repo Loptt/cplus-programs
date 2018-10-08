@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Node.h"
 
 class BST
@@ -11,6 +12,9 @@ class BST
     void remove(int data);
 
     void print(int c);
+    void print(int number, bool value);
+
+    int height();
 
   private:
     NodeT *root;
@@ -21,6 +25,7 @@ class BST
     void preOrder(NodeT *r);
     void inOrder(NodeT *r);
     void postOrder(NodeT *r);
+    void recorridoNivel();
 
     void libera(NodeT *r);
 };
@@ -32,7 +37,6 @@ BST::BST()
 
 BST::~BST()
 {
-
 }
 
 void BST::libera(NodeT *r)
@@ -191,7 +195,6 @@ void BST::remove(int data)
         current->setData(x);
 
         break;
-
     }
 }
 
@@ -225,6 +228,10 @@ void BST::postOrder(NodeT *r)
     }
 }
 
+void BST::recorridoNivel()
+{
+}
+
 void BST::print(int c)
 {
     //1 - PreOrder
@@ -233,17 +240,24 @@ void BST::print(int c)
 
     switch (c)
     {
-        case 1:
-            preOrder(root);
-            break;
-        
-        case 2:
-            inOrder(root);
-            break;
-        
-        case 3:
-            postOrder(root);
+    case 1:
+        preOrder(root);
+        break;
+
+    case 2:
+        inOrder(root);
+        break;
+
+    case 3:
+        postOrder(root);
+
+    case 5:
+        recorridoNivel();
     }
 
     std::cout << std::endl;
+}
+
+int BST::height()
+{
 }
