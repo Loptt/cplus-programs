@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 #include "Node.h"
 
 class BST
@@ -15,6 +16,8 @@ class BST
     void print(int number, bool value);
 
     int height();
+    void ancestors(int dato);
+    int whatLevelamI(int dato);
 
   private:
     NodeT *root;
@@ -26,6 +29,9 @@ class BST
     void inOrder(NodeT *r);
     void postOrder(NodeT *r);
     void recorridoNivel();
+
+    bool ancestorsHelper(NodeT *r, int dato);
+    int heightHelper(NodeT *r);
 
     void libera(NodeT *r);
 };
@@ -62,6 +68,8 @@ bool BST::search(int data)
 
         current = (current->getData() > data) ? current->getLeft() : current->getRight();
     }
+
+    return false;
 }
 
 void BST::add(int data)
@@ -230,6 +238,27 @@ void BST::postOrder(NodeT *r)
 
 void BST::recorridoNivel()
 {
+    std::queue<NodeT *> nodeQueue;
+
+    if (root == nullptr)
+        return;
+
+    nodeQueue.push(root);
+
+    while (!nodeQueue.empty())
+    {
+        std::cout << nodeQueue.front()->getData() << " ";
+
+        if (nodeQueue.front()->getLeft() != nullptr)
+            nodeQueue.push(nodeQueue.front()->getLeft());
+
+        if (nodeQueue.front()->getRight() != nullptr)
+            nodeQueue.push(nodeQueue.front()->getRight());
+
+        nodeQueue.pop();
+    }
+
+    std::cout << std::endl;
 }
 
 void BST::print(int c)
@@ -237,6 +266,7 @@ void BST::print(int c)
     //1 - PreOrder
     //2 - InOrder
     //3 - PostOrder
+    //5 - RecorridoNivel
 
     switch (c)
     {
@@ -250,14 +280,78 @@ void BST::print(int c)
 
     case 3:
         postOrder(root);
+        break;
 
     case 5:
         recorridoNivel();
+        break;
     }
 
     std::cout << std::endl;
 }
 
+bool BST::ancestorsHelper(NodeT *r, int dato)
+{
+    bool inLeft, inRight;
+
+    if (r == nullptr)
+        return false;
+
+    if (dato == r->getData())
+        return true;
+
+    if (dato < r->getData())
+        inLeft = ancestorsHelper(r->getLeft(), dato);
+
+    else
+        inRight = ancestorsHelper(r->getRight(), dato);
+
+    if (inLeft || inRight)
+    {
+        std::cout << r->getData() << std::endl;
+        return true;
+    }
+    else
+        return false;
+}
+
+void BST::ancestors(int dato)
+{
+    ancestorsHelper(root, dato);
+}
+
+int BST::heightHelper(NodeT *r)
+{
+    if (r == nullptr)
+        return 0;
+
+    int leftHeight = heightHelper(r->getLeft());
+    int rightHeight = heightHelper(r->getRight());
+
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1; 
+}
+
 int BST::height()
 {
+    heightHelper(root);
+}
+
+int BST::whatLevelamI(int dato)
+{
+    NodeT *current = root;
+
+    int levelCounter = 0;
+
+    while (current != nullptr)
+    {
+        if (current->getData() == dato)
+        {
+            return levelCounter;
+        }
+
+        current = (current->getData() > dato) ? current->getLeft() : current->getRight();
+        levelCounter++;
+    }
+
+    return -1;
 }

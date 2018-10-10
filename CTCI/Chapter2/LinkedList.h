@@ -37,6 +37,7 @@ class LinkedList
     void operator=(const LinkedList<T> &list);
 
     LinkedListNode<T> *getHead() { return head; }
+    void setHead(LinkedListNode<T> *n) { head = n; }
 
   private:
     LinkedListNode<T> *head;
