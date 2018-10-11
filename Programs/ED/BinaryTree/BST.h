@@ -19,6 +19,9 @@ class BST
     void ancestors(int dato);
     int whatLevelamI(int dato);
 
+    int maxWidth();
+    int nearestRelative(int d1, int d2);
+
   private:
     NodeT *root;
     int howManyChildren(NodeT *r);
@@ -328,7 +331,7 @@ int BST::heightHelper(NodeT *r)
     int leftHeight = heightHelper(r->getLeft());
     int rightHeight = heightHelper(r->getRight());
 
-    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1; 
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
 int BST::height()
@@ -355,3 +358,71 @@ int BST::whatLevelamI(int dato)
 
     return -1;
 }
+
+int BST::maxWidth()
+{
+    std::queue<NodeT *> nodeQueue;
+
+    if (root == nullptr)
+        return 0;
+
+    int maxWidth = 0;
+    int currMaxWidth = 1;
+
+    NodeT *nextLevel = root;
+    bool leftExists = false;
+    bool rightExists = false;
+
+    nodeQueue.push(root);
+
+    while (!nodeQueue.empty())
+    {
+        leftExists = nodeQueue.front()->getLeft() != nullptr;
+        rightExists = nodeQueue.front()->getRight() != nullptr;
+
+        if (nodeQueue.front() == nextLevel)
+        {
+            if (leftExists)
+                nextLevel = nodeQueue.front()->getLeft();
+            else if (rightExists)
+                nextLevel = nodeQueue.front()->getRight();
+            else
+                nextLevel = nullptr;
+
+            if (currMaxWidth > maxWidth)
+                maxWidth = currMaxWidth;
+
+            currMaxWidth = 0;
+        }
+
+        if (nodeQueue.front()->getLeft() != nullptr)
+            nodeQueue.push(nodeQueue.front()->getLeft());
+
+        if (nodeQueue.front()->getRight() != nullptr)
+            nodeQueue.push(nodeQueue.front()->getRight());
+
+        nodeQueue.pop();
+        currMaxWidth++;
+    }
+
+    return maxWidth;
+}
+
+int BST::nearestRelative(int d1, int d2)
+{
+    if (d1 == d2)
+        return d1;
+
+    NodeT *current = root;
+
+    while (current != nullptr)
+    {
+        if (!((current->getData() > d1 && current->getData()) > d2 || (current->getData() < d1 && current->getData() < d2)))
+            return current->getData();
+
+        current = (current->getData() > d1) ? current->getLeft() : current->getRight();
+    }
+
+    return -1;
+}
+

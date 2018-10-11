@@ -8,8 +8,8 @@ int main(int argc, char const *argv[])
     arbol.add(65);
     arbol.add(80);
     arbol.add(50);
-    arbol.add(1);
-    arbol.add(12);
+    arbol.add(58);
+    arbol.add(71);
     arbol.add(33);
     arbol.add(100);
     arbol.add(34);
@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
     arbol.print(3);
     arbol.print(5);
 
-    cout << arbol.height() << endl;
+    cout << arbol.nearestRelative(100,71) << endl;
 
     return 0;
 }
