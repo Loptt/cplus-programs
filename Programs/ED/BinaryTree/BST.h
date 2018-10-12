@@ -13,7 +13,6 @@ class BST
     void remove(int data);
 
     void print(int c);
-    void print(int number, bool value);
 
     int height();
     void ancestors(int dato);
@@ -21,6 +20,10 @@ class BST
 
     int maxWidth();
     int nearestRelative(int d1, int d2);
+
+    bool operator==(BST tree);
+
+    void mirror();
 
   private:
     NodeT *root;
@@ -31,12 +34,17 @@ class BST
     void preOrder(NodeT *r);
     void inOrder(NodeT *r);
     void postOrder(NodeT *r);
+    void printLeaves(NodeT *r);
     void recorridoNivel();
 
     bool ancestorsHelper(NodeT *r, int dato);
     int heightHelper(NodeT *r);
 
     void libera(NodeT *r);
+
+    bool isIdentical(NodeT *r, NodeT *r2);
+
+    void swapChildren(NodeT *r);
 };
 
 BST::BST()
@@ -264,6 +272,22 @@ void BST::recorridoNivel()
     std::cout << std::endl;
 }
 
+void BST::printLeaves(NodeT *r)
+{
+    if (r != nullptr)
+    {
+        if (r->getRight() == nullptr && r->getLeft() == nullptr)
+        {
+            std::cout << r->getData() << " ";
+        }
+        else
+        {
+            printLeaves(r->getLeft());
+            printLeaves(r->getRight());
+        }
+    }
+}
+
 void BST::print(int c)
 {
     //1 - PreOrder
@@ -284,6 +308,9 @@ void BST::print(int c)
     case 3:
         postOrder(root);
         break;
+
+    case 4:
+        printLeaves(root);
 
     case 5:
         recorridoNivel();
@@ -424,5 +451,42 @@ int BST::nearestRelative(int d1, int d2)
     }
 
     return -1;
+}
+
+bool BST::isIdentical(NodeT *r1, NodeT *r2)
+{
+    if (r1 == nullptr && r2 == nullptr)
+        return true;
+
+    if ((r1 == nullptr && r2 != nullptr) || r1 != nullptr && r2 == nullptr)
+        return false;
+
+    if (r1->getData() != r2->getData())
+        return false;
+
+    return isIdentical(r1->getLeft(), r2->getLeft()) && isIdentical(r1->getRight(), r2->getRight());
+}
+
+bool BST::operator==(BST tree2)
+{
+    return isIdentical(root, tree2.root);
+}
+
+void BST::swapChildren(NodeT *r) 
+{
+    if (r == nullptr)
+        return;
+
+    swapChildren(r->getLeft());
+    swapChildren(r->getRight());
+
+    NodeT *temp = r->getLeft();
+    r->setLeft(r->getRight());
+    r->setRight(temp);
+}
+
+void BST::mirror()
+{
+    swapChildren(root);
 }
 
