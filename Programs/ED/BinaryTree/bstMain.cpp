@@ -14,21 +14,10 @@ int main(int argc, char const *argv[])
     arbol.add(100);
     arbol.add(34);
 
-    BST arbol2;
-    arbol2.add(65);
-    arbol2.add(80);
-    arbol2.add(50);
-    arbol2.add(58);
-    arbol2.add(71);
-    arbol2.add(32);
-    arbol2.add(100);
-    arbol2.add(34);
+    BST arbol2(arbol);
 
     arbol.print(2);
-    
-    arbol.mirror();
-    
-    arbol.print(2);
+    arbol2.print(2);
 
     return 0;
 }

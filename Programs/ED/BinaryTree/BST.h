@@ -8,6 +8,8 @@ class BST
     BST();
     ~BST();
 
+    BST(const BST &a2);
+
     void add(int data);
     bool search(int data);
     void remove(int data);
@@ -24,6 +26,8 @@ class BST
     bool operator==(BST tree);
 
     void mirror();
+
+    int count();
 
   private:
     NodeT *root;
@@ -45,6 +49,7 @@ class BST
     bool isIdentical(NodeT *r, NodeT *r2);
 
     void swapChildren(NodeT *r);
+    int cuenta(NodeT *);
 };
 
 BST::BST()
@@ -54,6 +59,39 @@ BST::BST()
 
 BST::~BST()
 {
+    libera(root);
+}
+
+void createChildren(NodeT *rOld, NodeT *rNew)
+{
+    if (rOld == nullptr)
+        return;
+
+    if (rOld->getLeft() != nullptr)
+    {
+        rNew->setLeft(new NodeT(rOld->getLeft()->getData()));
+        std::cout << rOld->getLeft()->getData() << std::endl;
+        createChildren(rOld->getLeft(), rNew->getLeft());
+    }
+
+    if (rOld->getRight() != nullptr)
+    {
+        rNew->setRight(new NodeT(rOld->getRight()->getData()));
+        createChildren(rOld->getRight(), rNew->getLeft());
+    }   
+}
+
+BST::BST(const BST &tree)
+{
+    if (tree.root == nullptr)
+    {
+        root = nullptr;
+        return;
+    }
+
+    root = new NodeT(root->getData());
+
+    createChildren(tree.root, root);
 }
 
 void BST::libera(NodeT *r)
@@ -441,12 +479,19 @@ int BST::nearestRelative(int d1, int d2)
         return d1;
 
     NodeT *current = root;
+    NodeT *prev = root;
 
     while (current != nullptr)
     {
         if (!((current->getData() > d1 && current->getData()) > d2 || (current->getData() < d1 && current->getData() < d2)))
-            return current->getData();
+        {
+            if (current->getData() == d1 || current->getData() == d2)
+                return prev->getData();
 
+            return current->getData();
+        }
+
+        prev = current;
         current = (current->getData() > d1) ? current->getLeft() : current->getRight();
     }
 
@@ -472,7 +517,7 @@ bool BST::operator==(BST tree2)
     return isIdentical(root, tree2.root);
 }
 
-void BST::swapChildren(NodeT *r) 
+void BST::swapChildren(NodeT *r)
 {
     if (r == nullptr)
         return;
@@ -489,4 +534,3 @@ void BST::mirror()
 {
     swapChildren(root);
 }
-
