@@ -50,6 +50,8 @@ class BST
 
     void swapChildren(NodeT *r);
     int cuenta(NodeT *);
+
+    void createChildren(NodeT*, NodeT*);
 };
 
 BST::BST()
@@ -62,23 +64,19 @@ BST::~BST()
     libera(root);
 }
 
-void createChildren(NodeT *rOld, NodeT *rNew)
+void BST::createChildren(NodeT *rOld, NodeT *rNew)
 {
     if (rOld == nullptr)
         return;
 
     if (rOld->getLeft() != nullptr)
-    {
         rNew->setLeft(new NodeT(rOld->getLeft()->getData()));
-        std::cout << rOld->getLeft()->getData() << std::endl;
-        createChildren(rOld->getLeft(), rNew->getLeft());
-    }
 
     if (rOld->getRight() != nullptr)
-    {
         rNew->setRight(new NodeT(rOld->getRight()->getData()));
-        createChildren(rOld->getRight(), rNew->getLeft());
-    }   
+
+    createChildren(rOld->getLeft(), rNew->getLeft());
+    createChildren(rOld->getRight(), rNew->getRight());
 }
 
 BST::BST(const BST &tree)
@@ -89,7 +87,7 @@ BST::BST(const BST &tree)
         return;
     }
 
-    root = new NodeT(root->getData());
+    root = new NodeT(tree.root->getData());
 
     createChildren(tree.root, root);
 }
@@ -426,7 +424,7 @@ int BST::whatLevelamI(int dato)
 
 int BST::maxWidth()
 {
-    std::queue<NodeT *> nodeQueue;
+    /* std::queue<NodeT *> nodeQueue;
 
     if (root == nullptr)
         return 0;
@@ -468,6 +466,68 @@ int BST::maxWidth()
 
         nodeQueue.pop();
         currMaxWidth++;
+    }
+
+    return maxWidth; */
+
+    std::queue<NodeT *> topQueue;
+    std::queue<NodeT *> botQueue;
+
+    if (root == nullptr)
+        return 0;
+
+    int maxWidth = 1;
+
+    int widthCounter = 0;
+
+    topQueue.push(root);
+
+    bool onTop = true;
+
+    while(!topQueue.empty() || !botQueue.empty())
+    {
+        if (onTop)
+        {
+            if (topQueue.front()->getLeft() != nullptr)
+                botQueue.push(topQueue.front()->getLeft());
+            
+            if (topQueue.front()->getRight() != nullptr)
+                botQueue.push(topQueue.front()->getRight());
+
+            topQueue.pop();
+
+            widthCounter++;
+
+            if (topQueue.empty())
+            {
+                if (widthCounter > maxWidth)
+                    maxWidth = widthCounter;
+                
+                onTop = false;
+                widthCounter = 0;
+            }
+        }
+        else
+        {
+            if (botQueue.front()->getLeft() != nullptr)
+                topQueue.push(botQueue.front()->getLeft());
+            
+            if (botQueue.front()->getRight() != nullptr)
+                topQueue.push(botQueue.front()->getRight());
+
+            botQueue.pop();
+
+            widthCounter++;
+
+            if (botQueue.empty())
+            {
+                if (widthCounter > maxWidth)
+                    maxWidth = widthCounter;
+                
+                onTop = true;
+                widthCounter = 0;
+            }
+        }
     }
 
     return maxWidth;
