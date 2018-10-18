@@ -25,7 +25,5 @@ int main(int argc, char const *argv[])
 
     arbol2.print(1);
 
-    cout << arbol.maxWidth() << endl;
-
     return 0;
 }

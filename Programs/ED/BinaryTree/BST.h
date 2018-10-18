@@ -51,7 +51,7 @@ class BST
     void swapChildren(NodeT *r);
     int cuenta(NodeT *);
 
-    void createChildren(NodeT*, NodeT*);
+    void createChildren(NodeT *, NodeT *);
 };
 
 BST::BST()
@@ -399,7 +399,7 @@ int BST::heightHelper(NodeT *r)
 
 int BST::height()
 {
-    heightHelper(root);
+    return heightHelper(root);
 }
 
 int BST::whatLevelamI(int dato)
@@ -424,52 +424,6 @@ int BST::whatLevelamI(int dato)
 
 int BST::maxWidth()
 {
-    /* std::queue<NodeT *> nodeQueue;
-
-    if (root == nullptr)
-        return 0;
-
-    int maxWidth = 0;
-    int currMaxWidth = 1;
-
-    NodeT *nextLevel = root;
-    bool leftExists = false;
-    bool rightExists = false;
-
-    nodeQueue.push(root);
-
-    while (!nodeQueue.empty())
-    {
-        leftExists = nodeQueue.front()->getLeft() != nullptr;
-        rightExists = nodeQueue.front()->getRight() != nullptr;
-
-        if (nodeQueue.front() == nextLevel)
-        {
-            if (leftExists)
-                nextLevel = nodeQueue.front()->getLeft();
-            else if (rightExists)
-                nextLevel = nodeQueue.front()->getRight();
-            else
-                nextLevel = nullptr;
-
-            if (currMaxWidth > maxWidth)
-                maxWidth = currMaxWidth;
-
-            currMaxWidth = 0;
-        }
-
-        if (nodeQueue.front()->getLeft() != nullptr)
-            nodeQueue.push(nodeQueue.front()->getLeft());
-
-        if (nodeQueue.front()->getRight() != nullptr)
-            nodeQueue.push(nodeQueue.front()->getRight());
-
-        nodeQueue.pop();
-        currMaxWidth++;
-    }
-
-    return maxWidth; */
-
     std::queue<NodeT *> topQueue;
     std::queue<NodeT *> botQueue;
 
@@ -484,13 +438,13 @@ int BST::maxWidth()
 
     bool onTop = true;
 
-    while(!topQueue.empty() || !botQueue.empty())
+    while (!topQueue.empty() || !botQueue.empty())
     {
         if (onTop)
         {
             if (topQueue.front()->getLeft() != nullptr)
                 botQueue.push(topQueue.front()->getLeft());
-            
+
             if (topQueue.front()->getRight() != nullptr)
                 botQueue.push(topQueue.front()->getRight());
 
@@ -502,7 +456,7 @@ int BST::maxWidth()
             {
                 if (widthCounter > maxWidth)
                     maxWidth = widthCounter;
-                
+
                 onTop = false;
                 widthCounter = 0;
             }
@@ -511,7 +465,7 @@ int BST::maxWidth()
         {
             if (botQueue.front()->getLeft() != nullptr)
                 topQueue.push(botQueue.front()->getLeft());
-            
+
             if (botQueue.front()->getRight() != nullptr)
                 topQueue.push(botQueue.front()->getRight());
 
@@ -523,7 +477,7 @@ int BST::maxWidth()
             {
                 if (widthCounter > maxWidth)
                     maxWidth = widthCounter;
-                
+
                 onTop = true;
                 widthCounter = 0;
             }
@@ -535,27 +489,35 @@ int BST::maxWidth()
 
 int BST::nearestRelative(int d1, int d2)
 {
-    if (d1 == d2)
-        return d1;
-
-    NodeT *current = root;
+    NodeT *current1 = root;
+    NodeT *current2 = root;
     NodeT *prev = root;
 
-    while (current != nullptr)
+    if (root->getData() == d1 || root->getData() == d2)
+        return root->getData();
+
+    if (!search(d1) || !search(d2))
     {
-        if (!((current->getData() > d1 && current->getData()) > d2 || (current->getData() < d1 && current->getData() < d2)))
-        {
-            if (current->getData() == d1 || current->getData() == d2)
-                return prev->getData();
-
-            return current->getData();
-        }
-
-        prev = current;
-        current = (current->getData() > d1) ? current->getLeft() : current->getRight();
+        std::cout << "Invalid data... in nearestRelative function >:(" << std::endl;
+        return 0;        
     }
 
-    return -1;
+    while (current1 != nullptr)
+    {
+        if (current1->getData() == d1 || current1->getData() == d2)
+            return prev->getData();
+
+        prev = current1;
+        current1 = (current1->getData() > d1) ? current1->getLeft() : current1->getRight();
+        current2 = (current2->getData() > d2) ? current2->getLeft() : current2->getRight();
+
+        if (current1 != current2)
+            return prev->getData();
+    }
+
+    std::cout << "Invalid data... in nearestRelative function >:(" << std::endl;
+
+    return 0;
 }
 
 bool BST::isIdentical(NodeT *r1, NodeT *r2)
