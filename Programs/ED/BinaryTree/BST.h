@@ -29,6 +29,8 @@ class BST
 
     int count();
 
+    bool isBalanced();
+
   private:
     NodeT *root;
     int howManyChildren(NodeT *r);
@@ -555,4 +557,10 @@ void BST::swapChildren(NodeT *r)
 void BST::mirror()
 {
     swapChildren(root);
+}
+
+
+bool BST::isBalanced()
+{
+    
 }
