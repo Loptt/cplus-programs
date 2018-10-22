@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <cmath>
 #include "Node.h"
 
 class BST
@@ -30,6 +31,7 @@ class BST
     int count();
 
     bool isBalanced();
+    int diameter();
 
   private:
     NodeT *root;
@@ -54,6 +56,9 @@ class BST
     int cuenta(NodeT *);
 
     void createChildren(NodeT *, NodeT *);
+
+    bool isBalancedHelper(NodeT *T);
+    int diameterHelper(NodeT *r);
 };
 
 BST::BST()
@@ -501,7 +506,7 @@ int BST::nearestRelative(int d1, int d2)
     if (!search(d1) || !search(d2))
     {
         std::cout << "Invalid data... in nearestRelative function >:(" << std::endl;
-        return 0;        
+        return 0;
     }
 
     while (current1 != nullptr)
@@ -559,8 +564,30 @@ void BST::mirror()
     swapChildren(root);
 }
 
+bool BST::isBalancedHelper(NodeT *r)
+{
+    return (r == nullptr) ? true : (abs(heightHelper(r->getLeft()) - heightHelper(r->getRight())) < 2 && isBalancedHelper(r->getLeft()) && isBalancedHelper(r->getRight()));
+}
 
 bool BST::isBalanced()
 {
-    
+    return isBalancedHelper(root);
+}
+
+int BST::diameterHelper(NodeT *r)
+{
+    if (r == nullptr)
+        return 0;
+
+    int diameter = heightHelper(r->getLeft()) + heightHelper(r->getRight()) + 1;
+
+    int leftDiameter = diameterHelper(r->getLeft());
+    int rightDiameter = diameterHelper(r->getRight());
+
+    return ((diameter > leftDiameter) ? (diameter > rightDiameter ? diameter : rightDiameter) : (leftDiameter > rightDiameter ? leftDiameter : rightDiameter));
+}
+
+int BST::diameter()
+{
+    return diameterHelper(root);
 }

@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
 
     arbol.print(1);
 
-    arbol2.print(1);
+    cout << arbol.diameter() << endl;
 
     return 0;
 }
