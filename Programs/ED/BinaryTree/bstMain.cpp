@@ -20,7 +20,6 @@ int main(int argc, char const *argv[])
     arbol.add(72);
 
     BST arbol2(arbol);
-
     arbol.print(1);
 
     cout << arbol.diameter() << endl;
