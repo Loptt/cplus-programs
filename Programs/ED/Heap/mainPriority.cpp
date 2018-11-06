@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    Priority myPriority;
+    Priority myPriority(true);
 
     myPriority.push(5);
     myPriority.push(3);
@@ -14,15 +14,11 @@ int main()
     myPriority.push(4);
     myPriority.push(6);
 
-    myPriority.print();
-
-    myPriority.pop();
-
-    myPriority.print();
-
-    myPriority.pop();
-
-    myPriority.print();
+    while (!myPriority.empty())
+    {
+        myPriority.print();
+        myPriority.pop();
+    }
 
     return 0;
 }
