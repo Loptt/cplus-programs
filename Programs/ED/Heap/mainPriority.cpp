@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    Priority myPriority(true);
+    Priority myPriority(false);
 
     myPriority.push(5);
     myPriority.push(3);
