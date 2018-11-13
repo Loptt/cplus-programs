@@ -165,28 +165,25 @@ bool hasMatch(const vector<vector<Node>> &graph, string w, int i)
 
     while (!s.empty())
     {
+        currGraphIdx = s.top().graphIdx;
+        currWordIdx = s.top().wordIdx;
+        s.pop();
 
-        //Check if the node hasn't been processed
-        if (!status[currGraphIdx])
+        status[currGraphIdx] = true;
+
+        //Add all adjacent nodes to be processed
+        for (int i = 1; i < graph[currGraphIdx].size(); ++i)
         {
-            currGraphIdx = s.top().graphIdx;
-            currWordIdx = s.top().wordIdx;
-
-            status[currGraphIdx] = true;
-
-            cout << "Curr data: " << graph[currGraphIdx][0].data << endl;
-
-            //Add all adjacent nodes to be processed
-            for (int i = 0; i < graph[currGraphIdx].size(); ++i)
+            if (!status[graph[currGraphIdx][i].index])
             {
-                if (!status[graph[currGraphIdx][i].index])
+                //Check if the adjacent node has matching char
+                if (graph[currGraphIdx][i].data == w[currWordIdx + 1])
                 {
-                    //Check if the adjacent node has matching char
-                    if (graph[currGraphIdx][i].data == w[currWordIdx + 1])
-                    {
-                        item.setAtt(graph[currGraphIdx][i].index, currWordIdx + 1);
-                        s.push(item);
-                    }
+                    if (currWordIdx+1 == w.length()-1)
+                        return true;
+
+                    item.setAtt(graph[currGraphIdx][i].index, currWordIdx + 1);
+                    s.push(item);
                 }
             }
         }
@@ -201,7 +198,6 @@ int playBoggle(const vector<vector<Node>> &graph, string w)
     {
         if (graph[i][0].data == w[0])
         {
-            cout << "MATCH: " << i << endl;
             if (hasMatch(graph, w, i))
             {
                 return calculateScore(w);
@@ -224,7 +220,7 @@ int main()
         vector<vector<Node>> graph(N * N);
 
         readBoard(graph);
-        printListAdj(graph);
+        //printListAdj(graph);
 
         cin >> words;
 
