@@ -1,5 +1,6 @@
 #include <iostream>
 #include <climits>
+#include <iomanip>
 using namespace std;
 
 int min(int a, int b)
@@ -7,10 +8,49 @@ int min(int a, int b)
     return a < b ? a : b;
 }
 
+void printMatrix(int grafo[10][10], int n, int it)
+{
+    cout << "Iteracion " << it << ":" << endl;
+
+    cout << setw(7) << " |  ";
+    for (int i = 0; i < n; i++)
+    {
+        if (i == 0)
+        {
+            cout << setw(3) << i + 1;
+        }
+        else
+        {
+            cout << setw(5) << i + 1;
+        }
+    }
+
+    cout << endl
+         << "_________________________________________" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << setw(2) << i + 1 << "  |";
+        for (int j = 0; j < n; j++)
+        {
+            if (grafo[i][j] ==  INT_MAX) {
+                cout << setw(5) << "MAX";
+            }
+            else {
+                cout << setw(5) << grafo[i][j];
+            }
+        }
+        cout << endl;
+    }
+
+    cout << endl;
+}
+
 void floyd(int grafo[10][10], int n)
 {
     for (int k = 0; k < n; k++)
     {
+        printMatrix(grafo, n, k);
+
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
