@@ -49,7 +49,6 @@ void floyd(int grafo[10][10], int n)
 {
     for (int k = 0; k < n; k++)
     {
-        printMatrix(grafo, n, k);
 
         for (int i = 0; i < n; i++)
         {
@@ -61,6 +60,8 @@ void floyd(int grafo[10][10], int n)
                 }
             }
         }
+
+        printMatrix(grafo, n, k+1);
     }
 }
 
