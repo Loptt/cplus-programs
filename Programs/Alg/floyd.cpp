@@ -12,7 +12,7 @@ void printMatrix(int grafo[10][10], int n, int it)
 {
     cout << "Iteracion " << it << ":" << endl;
 
-    cout << setw(7) << " |  ";
+    cout << setw(5) << " |  ";
     for (int i = 0; i < n; i++)
     {
         if (i == 0)
@@ -27,15 +27,18 @@ void printMatrix(int grafo[10][10], int n, int it)
 
     cout << endl
          << "_________________________________________" << endl;
+
     for (int i = 0; i < n; i++)
     {
         cout << setw(2) << i + 1 << "  |";
         for (int j = 0; j < n; j++)
         {
-            if (grafo[i][j] ==  INT_MAX) {
+            if (grafo[i][j] == INT_MAX)
+            {
                 cout << setw(5) << "MAX";
             }
-            else {
+            else
+            {
                 cout << setw(5) << grafo[i][j];
             }
         }
@@ -61,7 +64,7 @@ void floyd(int grafo[10][10], int n)
             }
         }
 
-        printMatrix(grafo, n, k+1);
+        printMatrix(grafo, n, k + 1);
     }
 }
 
