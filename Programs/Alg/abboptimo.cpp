@@ -1,18 +1,67 @@
 #include <iostream>
+#include <iomanip>
 #include <climits>
 using namespace std;
 
-int sumatoria(int i, int j, int p[10])
+void printMatrix(double grafo[10][10], int n, int it)
 {
+    cout << "Iteracion " << it << ":" << endl;
 
+    cout << setw(7) << " |  ";
+    for (int i = 1; i <= n; i++)
+    {
+        if (i == 0)
+        {
+            cout << setw(3) << i;
+        }
+        else
+        {
+            cout << setw(5) << i;
+        }
+    }
+
+    cout << endl
+         << "_________________________________________" << endl;
+    for (int i = 1; i <= n; i++)
+    {
+        cout << setw(2) << i << "  |";
+        for (int j = 1; j <= n; j++)
+        {
+
+            cout << setw(5) << grafo[i][j];
+        }
+        cout << endl;
+    }
 }
 
-int minimo(int i, int j, int A[10][10])
+double sumatoria(int i, int j, double p[10])
 {
-    int min = INT_MAX
+    double sum = 0;
+
+    for (int k = i; k <= j; k++)
+    {
+        sum += p[k];
+    }
+
+    return sum;
 }
 
-void optimize(int A[10][10], int R[10][10], int p[10], int n)
+double minimo(int i, int j, double A[10][10])
+{
+    double min = INT_MAX;
+
+    for (int k = i; k <= j; k++)
+    {
+        if (A[i][k-1] + A[k+1][j] < min)
+        {
+            min = A[i][k-1] + A[k+1][j];
+        }
+    }
+
+    return min;
+}
+
+double optimize(double A[10][10], int R[10][10], double p[10], int n)
 {
     for (int i = 1; i <= n; i++) // inicialización de matrices de resultados
     {
@@ -21,8 +70,10 @@ void optimize(int A[10][10], int R[10][10], int p[10], int n)
         R[i][i] = i;
         R[i][i - 1] = 0;
     }
+
     A[n + 1][n] = 0;
     R[n + 1][n] = 0;
+
     for (int diag = 1; diag <= n - 1; diag++)
     {
         for (int i = 1; i <= n - diag; i++)
@@ -38,8 +89,21 @@ void optimize(int A[10][10], int R[10][10], int p[10], int n)
 
 int main()
 {
-    int A[10][10];
+    double A[10][10];
     int R[10][10];
-    int p[10];
+    double p[10];
+
+    int n;
+    cin >> n;
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> p[i];
+    }
+
+    cout << optimize(A, R, p, n) << endl;
+
+    printMatrix(A, n, 0);
+
     return 0;
 }
