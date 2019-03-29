@@ -1,13 +1,13 @@
 #include <iostream>
 #include <iomanip>
 #include <climits>
+#include <cstring>
 using namespace std;
 
-void printMatrix(double grafo[10][10], int n, int it)
+void printMatrix(int grafo[10][10], int n, int it)
 {
     cout << "Iteracion " << it << ":" << endl;
-
-    cout << setw(7) << " |  ";
+    cout << setw(5) << " |  ";
     for (int i = 1; i <= n; i++)
     {
         if (i == 0)
@@ -16,19 +16,49 @@ void printMatrix(double grafo[10][10], int n, int it)
         }
         else
         {
-            cout << setw(5) << i;
+            cout << setw(7) << i;
         }
     }
 
     cout << endl
-         << "_________________________________________" << endl;
+         << "________________________________________________________" << endl;
     for (int i = 1; i <= n; i++)
     {
         cout << setw(2) << i << "  |";
         for (int j = 1; j <= n; j++)
         {
 
-            cout << setw(5) << grafo[i][j];
+            cout << setw(7) << grafo[i][j];
+        }
+        cout << endl;
+    }
+}
+
+void printMatrix(double grafo[10][10], int n, int it)
+{
+    cout << "Iteracion " << it << ":" << endl;
+    cout << setw(5) << " |  ";
+    for (int i = 1; i <= n; i++)
+    {
+        if (i == 0)
+        {
+            cout << setw(3) << i;
+        }
+        else
+        {
+            cout << setw(7) << i;
+        }
+    }
+
+    cout << endl
+         << "________________________________________________________" << endl;
+    for (int i = 1; i <= n; i++)
+    {
+        cout << setw(2) << i << "  |";
+        for (int j = 1; j <= n; j++)
+        {
+
+            cout << setw(7) << grafo[i][j];
         }
         cout << endl;
     }
@@ -46,15 +76,16 @@ double sumatoria(int i, int j, double p[10])
     return sum;
 }
 
-double minimo(int i, int j, double A[10][10])
+double minimo(int i, int j, double A[10][10], int R[10][10])
 {
     double min = INT_MAX;
-
+x
     for (int k = i; k <= j; k++)
     {
         if (A[i][k-1] + A[k+1][j] < min)
         {
             min = A[i][k-1] + A[k+1][j];
+            R[i][j] = k;
         }
     }
 
@@ -65,21 +96,22 @@ double optimize(double A[10][10], int R[10][10], double p[10], int n)
 {
     for (int i = 1; i <= n; i++) // inicialización de matrices de resultados
     {
-        A[i][i - 1] = 0;
+        A[i][i - 1] = 0.0;
         A[i][i] = p[i];
         R[i][i] = i;
-        R[i][i - 1] = 0;
+        R[i][i - 1] = 0.0;
     }
 
-    A[n + 1][n] = 0;
-    R[n + 1][n] = 0;
+    A[n + 1][n] = 0.0;
+    R[n + 1][n] = 0.0;
 
     for (int diag = 1; diag <= n - 1; diag++)
     {
+        printMatrix(A, n, diag);
         for (int i = 1; i <= n - diag; i++)
         {
             int j = i + diag;
-            A[i][j] = minimo(i, j, A) + sumatoria(i, j, p);
+            A[i][j] = minimo(i, j, A, R) + sumatoria(i, j, p);
         }
         /*La función mínimo calcula el valor mínimo entre los diversos valores de: 
 	A[i,k-1] + A[k+1, j]  para k desde i hasta j . La función sumatoria calcula la suma de las probabilidades de la llave I hasta la llave j .*/
@@ -98,12 +130,15 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
-        cin >> p[i];
+        cin >> p[i+1];
     }
+
+    memset(A, 0.0, sizeof(A));
 
     cout << optimize(A, R, p, n) << endl;
 
     printMatrix(A, n, 0);
+    printMatrix(R, n, 0);
 
     return 0;
 }
