@@ -55,7 +55,7 @@ int main() {
     
     cout << endl<<"Distancias Minimas"<<endl;
     for(int i=1;i<N;i++)
-        cout<<"1 -> "<< (i+1) <<": "<< Dist[i]<<" "<<endl;;
+        cout<<"1 -> "<< (i+1) <<": "<< Dist[i]<<" "<<endl;
     
     return 0;
 }
