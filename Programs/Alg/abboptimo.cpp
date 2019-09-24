@@ -79,12 +79,11 @@ double sumatoria(int i, int j, double p[10])
 double minimo(int i, int j, double A[10][10], int R[10][10])
 {
     double min = INT_MAX;
-x
     for (int k = i; k <= j; k++)
     {
-        if (A[i][k-1] + A[k+1][j] < min)
+        if (A[i][k - 1] + A[k + 1][j] < min)
         {
-            min = A[i][k-1] + A[k+1][j];
+            min = A[i][k - 1] + A[k + 1][j];
             R[i][j] = k;
         }
     }
@@ -130,7 +129,7 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
-        cin >> p[i+1];
+        cin >> p[i + 1];
     }
 
     memset(A, 0.0, sizeof(A));
