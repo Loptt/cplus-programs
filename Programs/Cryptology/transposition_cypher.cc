@@ -4,11 +4,24 @@
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        std::cout << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <key>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <key>" << std::endl;
         return 1; 
     }
 
-    bool de = argv[1][1] =='d';
+    if (argv[1][0] != '-') {
+        std::cerr << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <shift>" << std::endl;
+        return 1;
+    }
+
+    bool de;
+    if (argv[1][1] == 'd') {
+        de = true;
+    } else if (argv[1][1] == 'e') {
+        de = false;
+    } else {
+        std::cerr << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <shift>" << std::endl;
+        return 1;
+    }
 
     char key = argv[2][0];
     int n = 0;
@@ -49,6 +62,10 @@ int main(int argc, char **argv) {
             }
         }
 
+        while (wIdx < width) {
+            mat[hIdx][wIdx++] = ' '; 
+        }
+
         int count = 0;
 
         for (int i = 0; i < width; i++) {
@@ -57,8 +74,10 @@ int main(int argc, char **argv) {
                     break;
                 }
 
-                std::cout << mat[j][i];
-                count++;
+                if (mat[j][i] != ' ') {
+                    std::cout << mat[j][i];
+                    count++;
+                }
             }
             if (count >= input.length()) {
                 break;

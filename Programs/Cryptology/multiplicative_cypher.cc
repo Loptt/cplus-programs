@@ -4,11 +4,26 @@
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        std::cout << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <key>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <key>" << std::endl;
         return 1; 
     }
 
-    bool de = argv[1][1] =='d';
+    if (argv[1][0] != '-') {
+        std::cerr << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <shift>" << std::endl;
+        return 1;
+    }
+
+    bool de;
+    if (argv[1][1] == 'd') {
+        std::cerr << "Decrypt not yet available" << std::endl;
+        return 1;
+    } else if (argv[1][1] == 'e') {
+        de = false;
+    } else {
+        std::cerr << "Usage: " << argv[0] << " <-d (decrypt) | -e (encrypt)> <shift>" << std::endl;
+        return 1;
+    }
+    
     int key = atoi(argv[2]);
 
     std::string input;

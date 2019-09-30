@@ -1,19 +1,104 @@
-#include <algorithm>
-#include <string>
 #include <iostream>
-#include <cctype>
- 
+#include <string>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+void trim(string &sText)
+{
+    string result;
+
+    for (int j = 0; j < sText.length(); j++)
+    {
+        if (sText[j] != ' ')
+            result += sText[j];
+    }
+
+    sText = result;
+}
+
+string encrypt(string sText, string key)
+{
+    double k = sText.size();
+    double n = key.size();
+    int dimY = ceil(k / n);
+    vector<string> mat(dimY, "");
+    string result = "";
+    int iCounter = 0;
+
+    for (int i = 0; i < dimY; i++)
+    {
+        for (int j = 0; j < n && iCounter < k; j++, iCounter++)
+        {
+            mat[i] += sText[iCounter];
+            cout << sText[iCounter] << " ";
+        }
+        cout << endl;
+    }
+
+    iCounter = 0;
+
+    for (int j = 0; j < n && iCounter < k; j++, iCounter++)
+    {
+        for (int i = 0; i < dimY; i++)
+        {
+            /*if (mat[i][j] < 'A' || mat[i][j] > 'Z') {
+                continue;
+            }*/
+            result += mat[i][j];
+        }
+    }
+    return result;
+}
+
+string decrypt(string sText, string key)
+{
+    double k = sText.size();
+    double n = key.size();
+    int dimY = ceil(k / n);
+    vector<string> mat(n, "");
+    string result = "";
+    int iCounter = 0;
+    cout << "TEXT  " <<  sText << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < dimY && iCounter < k; j++, iCounter++)
+        {
+            mat[i] += sText[iCounter];
+            cout << sText[iCounter] << " ";
+        }
+
+        cout << endl;
+    }
+
+    cout << endl;
+
+    iCounter = 0;
+
+    for (int j = 0; j < dimY && iCounter < k; j++, iCounter++)
+    {
+        for (int i = 0; i < n; i++)
+            result += mat[i][j];
+    }
+
+    return result;
+}
+
 int main()
 {
-    std::string str1 = "Text with some   spaces";
-    str1.erase(std::remove(str1.begin(), str1.end(), ' '),
-               str1.end());
-    std::cout << str1 << '\n';
- 
-    std::string str2 = "Text\n with\tsome \t  whitespaces\n\n";
-    str2.erase(std::remove_if(str2.begin(), 
-                              str2.end(),
-                              [](unsigned char x){return std::isspace(x);}),
-               str2.end());
-    std::cout << str2 << '\n';
+    string sTextDecrypted;
+    string sTextEncrypted;
+    string key = "SIDI";
+    sTextDecrypted = "MFEOAOWUYRITCTHEHEBY";
+
+    trim(sTextDecrypted);
+    sTextEncrypted = encrypt(sTextDecrypted, key);
+    trim(sTextEncrypted);
+    cout << sTextEncrypted << endl;
+    cout << decrypt(sTextEncrypted, key) << endl;
+
+    return 0;
 }
+
