@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     getKeyFromString(keyString, key);
 
     if (de) {
-        std::vector<int> newKey(5, 0);
+        std::vector<int> newKey(key.size(), 0);
         for (int i = 0; i < key.size(); i++) {
             newKey[key[i]] = i;
         }
@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
     while (std::getline(std::cin, input)) {
         result = input;
         for (int i = 0; i < input.length(); i++) {
-            if (input[i] < '0' || input[i] > '1') {
+            if (input[i] < '0' || input[i] > '9') {
                 // Ignore
             } else {
                 result[i] = input[key[i]];
