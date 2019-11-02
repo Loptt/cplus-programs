@@ -6,7 +6,7 @@ int main() {
     cin >> n >> v;
 
     if (v >= n) {
-        cout << n << endl;
+        cout << n-1 << endl;
         return 0;
     }
 
